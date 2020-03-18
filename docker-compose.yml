@@ -27,8 +27,6 @@ services:
     command: bundle exec pumactl start
     tty: true
     stdin_open: true
-    depends_on:
-      - db
     ports:
       - "3000:3000"
     volumes:
@@ -36,6 +34,8 @@ services:
       - public_data:/mahjong_parlor/public
       - tmp_data:/mahjong_parlor/tmp
       - log_data:/mahjong_parlor/log
+    depends_on:
+      - db
 
   web:
     build:
