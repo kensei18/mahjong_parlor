@@ -45,6 +45,6 @@ services:
     - "80:80"
     volumes:
     - public_data:/mahjong_parlor/public
-    - log_data:/mahjong_parlor/log
+    - tmp_data:/mahjong_parlor/tmp
     depends_on:
       - app
