@@ -40,6 +40,7 @@ services:
   web:
     build:
       context: containers/nginx
+    command: /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
     ports:
     - "80:80"
     volumes:
