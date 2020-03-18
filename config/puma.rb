@@ -37,3 +37,5 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 plugin :tmp_restart
 
 bind "unix://#{Rails.root}/tmp/sockets/puma.sock"
+
+stdout_redirect "#{Rails.root}/log/puma.stdout.log", "#{Rails.root}/log/puma.stderr.log", true
