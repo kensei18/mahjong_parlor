@@ -24,7 +24,7 @@ services:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
-    command: bundle exec puma -C config/puma.rb
+    command: bundle exec pumactl start
     tty: true
     stdin_open: true
     ports:
