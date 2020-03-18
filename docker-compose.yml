@@ -42,5 +42,8 @@ services:
       context: containers/nginx
     ports:
     - "80:80"
+    volumes:
+    - public_data:/mahjong_parlor/public
+    - log_data:/mahjong_parlor/log
     depends_on:
       - app
