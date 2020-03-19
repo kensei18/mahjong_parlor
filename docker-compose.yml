@@ -1,0 +1,50 @@
+version: '3'
+
+volumes:
+  mysql_5_7-data:
+  public_data:
+  tmp_data:
+  log_data:
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_5_7-data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+    command: bundle exec pumactl start
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/mahjong_parlor
+      - public_data:/mahjong_parlor/public
+      - tmp_data:/mahjong_parlor/tmp
+      - log_data:/mahjong_parlor/log
+    depends_on:
+      - db
+
+  web:
+    build:
+      context: containers/nginx
+    command: /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/nginx.conf
+    ports:
+    - "80:80"
+    volumes:
+    - public_data:/mahjong_parlor/public
+    - tmp_data:/mahjong_parlor/tmp
+    depends_on:
+      - app
