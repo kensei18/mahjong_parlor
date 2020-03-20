@@ -1,0 +1,13 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'config/environments/*'
+    - 'config/initializers/*'
+    - 'config/spring.rb'
+    - 'db/**/*'
