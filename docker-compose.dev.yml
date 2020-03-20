@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   mysql_5_7-data:
+  bundle_data:
 
 services:
   db:
@@ -31,3 +32,4 @@ services:
       - "3000:3000"
     volumes:
       - .:/mahjong_parlor
+      - bundle_data:/usr/local/bundle
