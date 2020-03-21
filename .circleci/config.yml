@@ -4,7 +4,7 @@ jobs:
   rubocop:
     working_directory: ~/mahjong_parlor
     docker:
-      image: circleci/ruby:2.6.5
+      image: "circleci/ruby:2.6.5"
     steps:
       - checkout
       - restore_cache:
@@ -23,14 +23,10 @@ jobs:
 
   rspec:
     working_directory: ~/mahjong_parlor
+    docker:
+      image: "circleci/ruby"
     steps:
       - checkout
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker
       - run:
           name: Start containers and verify it is working
