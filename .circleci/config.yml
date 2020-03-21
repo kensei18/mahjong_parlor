@@ -25,25 +25,25 @@ jobs:
     working_directory: ~/mahjong_parlor
     steps:
       - checkout
-      - run:
-      name: Install Docker Compose
-      command: |
-        curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-        chmod +x ~/docker-compose
-        sudo mv ~/docker-compose /usr/local/bin/docker-compose
+     - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - setup_remote_docker
       - run:
-      name: Start containers and verify it is working
-      command: |
-        set -x
-        docker-compose up -d
-        docker-compose exec app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+          name: Start containers and verify it is working
+          command: |
+            set -x
+            docker-compose up -d
+            docker-compose exec app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
-      name: Setup database
-      command: docker-compose exec app rails db:schema:load --trace
+          name: Setup database
+          command: docker-compose exec app rails db:schema:load --trace
       - run:
-      name: Run Rspec
-      command: docker-compose exec app bin/rspec
+          name: Run Rspec
+          command: docker-compose exec app bin/rspec
 
 workflows:
   version: 2.1
