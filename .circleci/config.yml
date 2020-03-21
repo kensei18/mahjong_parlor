@@ -4,7 +4,7 @@ jobs:
   rubocop:
     working_directory: ~/mahjong_parlor
     docker:
-      image: "circleci/ruby:2.6.5"
+      - image: circleci/ruby:2.6.5
     steps:
       - checkout
       - restore_cache:
@@ -24,7 +24,7 @@ jobs:
   rspec:
     working_directory: ~/mahjong_parlor
     docker:
-      image: "circleci/ruby"
+      - image: circleci/ruby
     steps:
       - checkout
       - setup_remote_docker
