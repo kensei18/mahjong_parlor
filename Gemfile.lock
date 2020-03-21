@@ -219,7 +219,8 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.4, >= 5.2.4.1)
   rspec-rails (~> 3.9.1)
-  rubocop-airbnb
+  rubocop (= 0.76.0)
+  rubocop-airbnb (= 3.0.2)
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
