@@ -29,14 +29,16 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Start containers and verify it is working
+          name: Start containers
           command: |
             set -x
             docker-compose build
-            docker-compose run web curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:80
       - run:
           name: Setup database
           command: docker-compose run app rails db:create db:migrate
+      - run:
+          name: Verify it is working
+          command: docker-compose run app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
           name: Run Rspec
           command: docker-compose run app bin/rspec
