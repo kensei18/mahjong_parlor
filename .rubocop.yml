@@ -11,3 +11,6 @@ AllCops:
     - 'config/initializers/*'
     - 'config/spring.rb'
     - 'db/**/*'
+    - 'spec/*_helper.rb'
+    - 'vendor/**/*'
+    - 'path/ruby'
