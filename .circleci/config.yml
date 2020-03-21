@@ -29,7 +29,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Start containers
+          name: Start containers and verify it is working
           command: |
             set -x
             docker-compose up -d
@@ -37,9 +37,6 @@ jobs:
       - run:
           name: Setup database
           command: docker-compose exec app rails db:create db:migrate
-      - run:
-          name: Verify it is working
-          command:
       - run:
           name: Run Rspec
           command: docker-compose exec app bin/rspec
