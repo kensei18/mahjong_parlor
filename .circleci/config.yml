@@ -32,14 +32,14 @@ jobs:
           name: Start containers and verify it is working
           command: |
             set -x
-            docker-compose up -d
-            docker exec web appropriate/curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:80
+            docker-compose build
+            docker-compose run web appropriate/curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:80
       - run:
           name: Setup database
-          command: docker-compose exec app rails db:create db:migrate
+          command: docker-compose run app rails db:create db:migrate
       - run:
           name: Run Rspec
-          command: docker-compose exec app bin/rspec
+          command: docker-compose run app bin/rspec
 
 workflows:
   version: 2.1
