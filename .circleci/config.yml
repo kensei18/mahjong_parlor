@@ -1,0 +1,50 @@
+version: 2.1
+
+jobs:
+  rubocop:
+    working_directory: ~/mahjong_parlor
+    docker:
+      - image: circleci/ruby:2.6.5
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
+
+  rspec:
+    working_directory: ~/mahjong_parlor
+    docker:
+      - image: circleci/ruby
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Start containers
+          command: |
+            set -x
+            docker-compose up -d
+      - run:
+          name: Setup database
+          command: docker-compose run app rails db:create db:migrate
+      - run:
+          name: Run Rspec
+          command: docker-compose run app rspec
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - rubocop
+      - rspec:
+          requires:
+            - rubocop
