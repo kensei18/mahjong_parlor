@@ -29,4 +29,43 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'relationships' do
+    let(:user1) { create(:user) }
+    let(:user2) { create(:user) }
+
+    context 'with a relationship that the follower is user1 and the followed user is user2' do
+      let!(:relationship) { create(:relationship, follower: user1, followed: user2) }
+
+      it 'following of user1 include user2' do
+        expect(user1.following).to include(user2)
+      end
+
+      it 'followers of user2 include user1' do
+        expect(user2.followers).to include(user1)
+      end
+
+      it 'returns that user1 is following user2' do
+        expect(user1).to be_following(user2)
+      end
+
+      it 'returns that user2 is not following user1' do
+        expect(user2).not_to be_following(user1)
+      end
+
+      describe '#unfollow' do
+        it 'destroy the relationship that user1 is following user2' do
+          user1.unfollow(user2)
+          expect(user1).not_to be_following(user2)
+        end
+      end
+    end
+
+    describe '#follow' do
+      it 'create a relationship that user1 is following user2' do
+        user1.follow(user2)
+        expect(user1).to be_following(user2)
+      end
+    end
+  end
 end
