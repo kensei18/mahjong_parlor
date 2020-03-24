@@ -28,6 +28,13 @@ RSpec.describe User, type: :model do
         expect(build(:user, email: 'user@')).not_to be_valid
       end
     end
+
+    context 'with uppercase email address' do
+      it 'is saved after changing upper-case letters to lower-case letters' do
+        user = create(:user, email: 'UsEr@ExaMPLE.CoM')
+        expect(user.email).to eq 'user@example.com'
+      end
+    end
   end
 
   describe 'relationships' do
