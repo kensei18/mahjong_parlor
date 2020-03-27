@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--  TODO  -->
-    <!--  titleをページごとに動的にする  -->
-    <title>MahjongParlor</title>
+    <title><%= full_title yield(:title) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
