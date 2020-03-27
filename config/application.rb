@@ -27,8 +27,15 @@ module MahjongParlor
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # Don't generate system test files.
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
+    config.i18n.default_locale = :ja
+
     config.generators do |g|
+      g.assets false
+      g.helper false
+
       g.test_framework :rspec,
                        controller_specs: false,
                        routing_specs: false,
