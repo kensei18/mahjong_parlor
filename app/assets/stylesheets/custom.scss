@@ -1,0 +1,44 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
+
+// INDEX
+// 1.Header
+// 1.1 Header Logo
+// 2.Main wrapper
+
+// 1.Header
+.navbar-default {
+  height: 60px;
+  background-color: darkcyan;
+  border: none;
+}
+
+button.navbar-toggle {
+  margin: 13px 15px;
+}
+
+// 1.1 Header Logo
+#header-logo {
+  font-family: 'Luckiest Guy', cursive;
+  color: greenyellow;
+  font-size: 35px;
+  line-height: 65px;
+  text-decoration: none;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  #header-logo {
+    font-size: 28px;
+    margin-left: 10px;
+  }
+}
+
+// 2.Main-wrapper
+.main-wrapper {
+  margin-top: 60px;
+}
