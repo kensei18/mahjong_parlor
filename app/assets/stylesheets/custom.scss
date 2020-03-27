@@ -1,0 +1,82 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
+
+// INDEX
+// 0. Fundamental CSS
+// 1. Header
+// 1.1. Header Logo
+// 2. Content wrapper
+// 3. Footer
+// 3.1. Footer Logo
+
+// 0. Fundamental CSS
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 85vh;
+}
+
+// 1. Header
+.navbar-default {
+  height: 60px;
+  background-color: darkcyan;
+  border: none;
+}
+
+button.navbar-toggle {
+  margin: 13px 15px;
+}
+
+// 1.1. Header Logo
+#header-logo {
+  font-family: 'Luckiest Guy', cursive;
+  color: greenyellow;
+  font-size: 35px;
+  line-height: 65px;
+  margin-left: 30px;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  #header-logo {
+    font-size: 28px;
+    margin-left: 10px;
+  }
+}
+
+// 2. Content-wrapper
+.content-wrapper {
+  margin-top: 60px;
+}
+
+// 3. Footer
+footer {
+  width: 100%;
+  height: 60px;
+  margin-top: 30px;
+  .footer-wrapper {
+    padding: 10px;
+    border-top: solid 1px #BBBBBB;
+  }
+}
+
+// 3.1. Footer Logo
+#footer-logo {
+  font-family: 'Luckiest Guy', cursive;
+  color: greenyellow;
+  background-color: darkcyan;
+  font-size: 20px;
+  padding: 5px 5px 0;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .footer-wrapper {
+    text-align: center;
+  }
+}
