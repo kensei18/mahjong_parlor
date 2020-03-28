@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root 'home#hello'
+  root 'parlors#index'
   devise_for :users
 end
