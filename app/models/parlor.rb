@@ -1,3 +1,3 @@
 class Parlor < ApplicationRecord
-  validates :address, uniqueness: true
+  validates :name, uniqueness: { scope: :address }
 end
