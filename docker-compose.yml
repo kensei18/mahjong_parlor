@@ -5,7 +5,6 @@ volumes:
   public_data:
   tmp_data:
   log_data:
-  bundle_data:
 
 services:
   db:
@@ -21,6 +20,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: Dockerfile
     environment:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password
@@ -35,7 +35,6 @@ services:
       - public_data:/mahjong_parlor/public
       - tmp_data:/mahjong_parlor/tmp
       - log_data:/mahjong_parlor/log
-      - bundle_data:/usr/local/bundle
     depends_on:
       - db
 
