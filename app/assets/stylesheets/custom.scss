@@ -9,10 +9,9 @@
 // 0. Fundamental CSS
 // 1. Header
 // 1.1. Header Logo
-// 2. Content wrapper
-// 3. Footer
-// 3.1. Footer Logo
-// 4. Map
+// 2. Footer
+// 2.1. Footer Logo
+// 3. Map
 
 // 0. Fundamental CSS
 html, body {
@@ -25,7 +24,12 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 85vh;
-  height: 100%;
+  height: auto;
+}
+
+.content-wrapper {
+  height: auto;
+  margin-top: 60px;
 }
 
 // 1. Header
@@ -56,12 +60,7 @@ button.navbar-toggle {
   }
 }
 
-// 2. Content-wrapper
-.content-wrapper {
-  margin-top: 60px;
-}
-
-// 3. Footer
+// 2. Footer
 footer {
   width: 100%;
   height: 60px;
@@ -72,7 +71,7 @@ footer {
   }
 }
 
-// 3.1. Footer Logo
+// 2.1. Footer Logo
 #footer-logo {
   font-family: 'Luckiest Guy', cursive;
   color: greenyellow;
@@ -89,7 +88,7 @@ footer {
   }
 }
 
-// 4. Map
+// 3. Map
 #map {
   width: 100%;
   height: 450px;
