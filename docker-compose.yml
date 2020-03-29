@@ -4,7 +4,6 @@ volumes:
   mysql_5_7-data:
   public_data:
   tmp_data:
-  log_data:
 
 services:
   db:
@@ -31,10 +30,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - .:/mahjong_parlor
       - public_data:/mahjong_parlor/public
       - tmp_data:/mahjong_parlor/tmp
-      - log_data:/mahjong_parlor/log
     depends_on:
       - db
 
