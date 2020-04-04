@@ -6,16 +6,22 @@
         <%= f.text_field :name, class: 'form-control', placeholder: "登録名" %><br>
       </div>
       <div class="col-sm-4">
-        <%= f.label :address, "住所" %>
-        <%= f.text_field :address, class: 'form-control' %><br>
+        <fieldset disabled>
+          <%= f.label :address, "住所" %>
+          <%= f.text_field :address, class: 'form-control' %><br>
+        </fieldset>
       </div>
       <div class="col-sm-2">
-        <%= f.label :latitude, "緯度" %>
-        <%= f.text_field :latitude, class: 'form-control' %><br>
+        <fieldset disabled>
+          <%= f.label :latitude, "緯度" %>
+          <%= f.text_field :latitude, class: 'form-control' %><br>
+        </fieldset>
       </div>
       <div class="col-sm-2">
-        <%= f.label :longitude, "経度" %>
-        <%= f.text_field :longitude, class: 'form-control' %><br>
+        <fieldset disabled>
+          <%= f.label :longitude, "経度" %>
+          <%= f.text_field :longitude, class: 'form-control' %><br>
+        </fieldset>
       </div>
       <div class="col-sm-2">
         <%= f.submit "登録", class: 'btn btn-info' %>
