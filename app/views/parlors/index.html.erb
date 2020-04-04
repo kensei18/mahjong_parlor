@@ -10,6 +10,4 @@
         });
     }
 </script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.gmap[:js_key] %>&callback=initMap">
-</script>
+<%= render 'shared/google_maps_url' %>
