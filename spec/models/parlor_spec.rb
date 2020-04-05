@@ -5,6 +5,32 @@ RSpec.describe Parlor, type: :model do
     expect(build(:parlor)).to be_valid
   end
 
+  describe 'validation for presence' do
+    context 'without name' do
+      it 'is invalid' do
+        expect(build(:parlor, name: '')).not_to be_valid
+      end
+    end
+
+    context 'without address' do
+      it 'is invalid' do
+        expect(build(:parlor, address: '')).not_to be_valid
+      end
+    end
+
+    context 'without latitude' do
+      it 'is invalid' do
+        expect(build(:parlor, latitude: nil)).not_to be_valid
+      end
+    end
+
+    context 'without longitude' do
+      it 'is invalid' do
+        expect(build(:parlor, longitude: nil)).not_to be_valid
+      end
+    end
+  end
+
   describe 'validation for uniqueness' do
     let!(:parlor) { create(:parlor) }
 

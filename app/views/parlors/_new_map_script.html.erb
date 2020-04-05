@@ -1,0 +1,40 @@
+<script type="text/javascript" id="map-script">
+    function initMap() {
+        let map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 35.659487, lng: 139.699901},
+            zoom: 16,
+            gestureHandling: 'cooperative'
+        });
+        let geocoder = new google.maps.Geocoder;
+        let infowindow = new google.maps.InfoWindow;
+
+        document.getElementById('address-submit').addEventListener('click', function () {
+            codeAddress(geocoder, map, infowindow);
+        });
+    }
+
+    function codeAddress(geocoder, map, infowindow) {
+        let address = document.getElementById('address').value;
+        geocoder.geocode( { 'address': address }, function(results, status) {
+            if (status === 'OK') {
+                map.setZoom(17);
+                map.setCenter(results[0].geometry.location);
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+                infowindow.setContent(results[0].formatted_address);
+                infowindow.open(map, marker);
+
+                document.getElementById('parlor_address').value = results[0].formatted_address;
+                document.getElementById('parlor_latitude').value = results[0].geometry.location.lat();
+                document.getElementById('parlor_longitude').value = results[0].geometry.location.lng();
+                document.getElementById('parlor_address').readOnly = true;
+                document.getElementById('parlor_latitude').readOnly = true;
+                document.getElementById('parlor_longitude').readOnly = true;
+            } else {
+                alert('該当するお店が存在しません: ' + status);
+            }
+        });
+    }
+</script>

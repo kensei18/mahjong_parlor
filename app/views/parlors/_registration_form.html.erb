@@ -1,0 +1,26 @@
+<div class="registration-form">
+  <%= form_for @parlor, url: parlors_path do |f| %>
+    <%= render 'shared/error_message', object: f.object %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%= f.label :name, "店舗名" %>
+        <%= f.text_field :name, class: 'form-control', placeholder: "登録名" %><br>
+      </div>
+      <div class="col-sm-4">
+        <%= f.label :address, "住所 (自動入力)" %>
+        <%= f.text_field :address, class: 'form-control' %><br>
+      </div>
+      <div class="col-sm-2">
+        <%= f.label :latitude, "緯度 (自動入力)" %>
+        <%= f.text_field :latitude, class: 'form-control' %><br>
+      </div>
+      <div class="col-sm-2">
+        <%= f.label :longitude, "経度 (自動入力)" %>
+        <%= f.text_field :longitude, class: 'form-control' %><br>
+      </div>
+      <div class="col-sm-2 col-sm-offset-0 col-xs-8 col-xs-offset-2">
+        <%= f.submit "登録", class: 'btn btn-info' %>
+      </div>
+    </div>
+  <% end %>
+</div>

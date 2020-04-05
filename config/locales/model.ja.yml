@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      parlor: 雀荘
+    attributes:
+      parlor:
+        name: 店舗名
+        address: 住所
+        latitude: 緯度
+        longitude: 経度
+  attributes:
+    created_at: 作成日
+    updated_at: 更新日
