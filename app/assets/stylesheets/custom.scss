@@ -9,16 +9,20 @@
 // 0. Fundamental CSS
 // 1. Header
 // 1.1. Header Logo
+// 1.2. Header Menu
 // 2. Footer
 // 2.1. Footer Logo
 // 3. Map
 // 4. Form
-// 4.0 Error message
-// 4.1 Parlor form
-// 4.1.1 Search form
-// 4.1.2 Registration form
+// 4.0. Error Message
+// 4.1. Parlor Form
+// 4.1.1. Search Form
+// 4.1.2. Registration Form
 
 // 0. Fundamental CSS
+$xs-width: 768px;
+$sm-width: 992px;
+
 html, body {
   height: 100%;
   margin: 0;
@@ -40,10 +44,24 @@ html, body {
   height: 60px;
   background-color: darkcyan;
   border: none;
+  .navbar-collapse {
+    padding: 0 15px;
+  }
 }
+
+.container-fluid, .navbar-header {
+  height: 100%;
+}
+
 
 button.navbar-toggle {
   margin: 13px 15px;
+}
+
+@media (max-width: $xs-width) {
+  .navbar-default .navbar-collapse {
+    background-color: #00478b;
+  }
 }
 
 // 1.1. Header Logo
@@ -56,10 +74,28 @@ button.navbar-toggle {
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $xs-width) {
   #header-logo {
     font-size: 28px;
     margin-left: 10px;
+  }
+}
+
+// 1.2. Header Menu
+.navbar-default .navbar-nav li a {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px 15px;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #DADADA;
+  }
+}
+
+@media (max-width: $xs-width) {
+  .navbar-default .navbar-nav li a {
+    padding: 5px 50px;
   }
 }
 
@@ -85,7 +121,7 @@ footer {
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $xs-width) {
   .footer-wrapper {
     text-align: center;
   }
@@ -97,7 +133,7 @@ footer {
   height: 450px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: $xs-width) {
   #map {
     height: 250px;
   }
@@ -108,7 +144,7 @@ footer {
   font-size: 20px;
 }
 
-// 4.0 Error message
+// 4.0. Error Message
 .error-message {
   padding: 10px;
   border: solid 5px #ff4f4c;
@@ -119,8 +155,16 @@ footer {
   }
 }
 
-// 4.1 Parlor form
-// 4.1.1 Search form
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: #ff4f4c;
+    border-color: #ff4f4c;
+  }
+}
+
+// 4.1. Parlor Form
+// 4.1.1. Search Form
 .search-form {
   margin: 40px auto;
   .btn {
@@ -128,13 +172,13 @@ footer {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: $sm-width) {
   .search-form .btn {
     width: 50%;
   }
 }
 
-// 4.1.2 Registration form
+// 4.1.2. Registration Form
 .registration-form {
   margin-top: 30px;
   .btn {
