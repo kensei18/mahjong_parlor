@@ -13,6 +13,7 @@
 // 2.1. Footer Logo
 // 3. Map
 // 4. Form
+// 4.0 Error message
 // 4.1 Parlor form
 // 4.1.1 Search form
 // 4.1.2 Registration form
@@ -107,6 +108,17 @@ footer {
   font-size: 20px;
 }
 
+// 4.0 Error message
+.error-message {
+  padding: 10px;
+  border: solid 5px #ff4f4c;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  h4 {
+    color: red;
+  }
+}
+
 // 4.1 Parlor form
 // 4.1.1 Search form
 .search-form {
@@ -135,4 +147,5 @@ footer {
 
 #parlor_address, #parlor_latitude, #parlor_longitude {
   font-size: 12px;
+  background-color: #999999;
 }

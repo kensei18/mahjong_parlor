@@ -12,8 +12,7 @@ class ParlorsController < ApplicationController
       flash[:success] = "新しい店舗を登録しました！"
       redirect_to root_url
     else
-      flash[:danger] = "すでに登録済みの店舗です"
-      render 'new'
+      render :new
     end
   end
 

@@ -29,6 +29,9 @@
                 document.getElementById('parlor_address').value = results[0].formatted_address;
                 document.getElementById('parlor_latitude').value = results[0].geometry.location.lat();
                 document.getElementById('parlor_longitude').value = results[0].geometry.location.lng();
+                document.getElementById('parlor_address').readOnly = true;
+                document.getElementById('parlor_latitude').readOnly = true;
+                document.getElementById('parlor_longitude').readOnly = true;
             } else {
                 alert('該当するお店が存在しません: ' + status);
             }
