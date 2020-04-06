@@ -128,15 +128,19 @@ footer {
 }
 
 // 3. Map
-#map {
+.map {
   width: 100%;
   height: 450px;
 }
 
 @media (max-width: $xs-width) {
-  #map {
+  .map {
     height: 250px;
   }
+}
+
+#parlors-index-map, #parlors-new-map {
+  @extend .map
 }
 
 // 4. Form
