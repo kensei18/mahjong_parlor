@@ -8,15 +8,15 @@
       </div>
       <div class="col-sm-4">
         <%= f.label :address, "住所 (自動入力)" %>
-        <%= f.text_field :address, class: 'form-control' %><br>
+        <%= f.text_field :address, class: 'form-control readonly' %><br>
       </div>
       <div class="col-sm-2">
         <%= f.label :latitude, "緯度 (自動入力)" %>
-        <%= f.text_field :latitude, class: 'form-control' %><br>
+        <%= f.text_field :latitude, class: 'form-control readonly' %><br>
       </div>
       <div class="col-sm-2">
         <%= f.label :longitude, "経度 (自動入力)" %>
-        <%= f.text_field :longitude, class: 'form-control' %><br>
+        <%= f.text_field :longitude, class: 'form-control readonly' %><br>
       </div>
       <div class="col-sm-2 col-sm-offset-0 col-xs-8 col-xs-offset-2">
         <%= f.submit "登録", class: 'btn btn-info' %>
