@@ -23,7 +23,7 @@
             });
 
             contentString = "<div class='map-window'>";
-            contentString += "<h4><strong><a href=" + `/parlors/${item['id']}` + ">" + item['name'] + "</a></strong></h4>";
+            contentString += `<h4><strong><a href=/parlors/${item['id']}>` + item['name'] + "</a></strong></h4>";
             contentString += "<p>" + item['address'] + "</p>";
             contentString += "</div>";
             infoWindow = new google.maps.InfoWindow({
