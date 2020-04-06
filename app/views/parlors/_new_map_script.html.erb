@@ -1,28 +1,31 @@
-<script type="text/javascript" id="map-script">
-    let map;
-    let geocoder;
-    let markers = [];
-    let infowindow;
+<script type="text/javascript">
+    document.addEventListener('turbolinks:load', function () {
+        checkMapsTurbolinks();
+    });
 
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        isMapsApiLoaded = true;
+
+        let map = new google.maps.Map(document.getElementById('parlors-new-map'), {
             center: {lat: 35.659487, lng: 139.699901},
             zoom: 16,
             gestureHandling: 'cooperative'
         });
-        geocoder = new google.maps.Geocoder;
-        infowindow = new google.maps.InfoWindow;
+        let geocoder = new google.maps.Geocoder;
+        let infoWindow = new google.maps.InfoWindow;
 
         $('#address-submit').click(function () {
-            codeAddress();
+            codeAddress(map, geocoder, infoWindow);
         });
     }
 
-    function codeAddress() {
+    function codeAddress(map, geocoder, infoWindow) {
+        let markers = [];
         let address = $('#address').val();
+
         geocoder.geocode( { 'address': address }, function(results, status) {
             if (status === 'OK') {
-                clearMarkers();
+                clearMarkers(markers);
                 map.setZoom(17);
                 map.setCenter(results[0].geometry.location);
                 let marker = new google.maps.Marker({
@@ -30,8 +33,8 @@
                     position: results[0].geometry.location
                 });
                 markers.push(marker);
-                infowindow.setContent(results[0].formatted_address);
-                infowindow.open(map, marker);
+                infoWindow.setContent(results[0].formatted_address);
+                infoWindow.open(map, marker);
 
                 $('#parlor_address').val(results[0].formatted_address);
                 $('#parlor_latitude').val(results[0].geometry.location.lat());
@@ -43,7 +46,7 @@
         });
     }
 
-    function clearMarkers() {
+    function clearMarkers(markers) {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }

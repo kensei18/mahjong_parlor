@@ -128,15 +128,19 @@ footer {
 }
 
 // 3. Map
-#map {
+.map {
   width: 100%;
   height: 450px;
 }
 
 @media (max-width: $xs-width) {
-  #map {
+  .map {
     height: 250px;
   }
+}
+
+#parlors-index-map, #parlors-new-map {
+  @extend .map
 }
 
 // 4. Form
@@ -189,7 +193,6 @@ footer {
   }
 }
 
-#parlor_address, #parlor_latitude, #parlor_longitude {
+.readonly {
   font-size: 12px;
-  background-color: #999999;
 }

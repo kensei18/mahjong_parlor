@@ -1,14 +1,15 @@
-<div id="map"></div>
+<div id="parlors-index-map"></div>
 <script type="text/javascript">
-    let map;
-    let parlorsData = <%= raw @parlors.to_json %>;
+    document.addEventListener('turbolinks:load', function () {
+        checkMapsTurbolinks();
+    });
 
     function initMap() {
-        let marker;
-        let infoWindow;
-        let contentString;
+        isMapsApiLoaded = true;
 
-        map = new google.maps.Map(document.getElementById('map'), {
+        let parlorsData = <%= raw @parlors.to_json %>;
+
+        let map = new google.maps.Map(document.getElementById('parlors-index-map'), {
             center: {lat: 35.659487, lng: 139.699901},
             zoom: 16,
             gestureHandling: 'cooperative'
@@ -17,36 +18,37 @@
         for (let i = 0; i < parlorsData.length; i++) {
             let item = parlorsData[i];
 
-            marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
                 position: {'lat': parseFloat(item['latitude']), 'lng': parseFloat(item['longitude'])},
                 map: map
             });
 
-            contentString = "<div class='map-window'>";
-            contentString += `<h4><strong><a href=/parlors/${item['id']}>` + item['name'] + "</a></strong></h4>";
-            contentString += "<p>" + item['address'] + "</p>";
-            contentString += "</div>";
-            infoWindow = new google.maps.InfoWindow({
+            let contentString = "<div class='map-window'>" +
+                                `<h4><strong><a href=/parlors/${item['id']}>` + item['name'] + "</a></strong></h4>" +
+                                "<p>" + item['address'] + "</p>" +
+                                "</div>";
+
+            let infoWindow = new google.maps.InfoWindow({
                 content: contentString
             });
-            openInfoWindow(marker, infoWindow, i)
+
+            openInfoWindow(parlorsData, map, marker, infoWindow, i)
         }
     }
 
-    function openInfoWindow(marker, infoWindow, index) {
-        let item = parlorsData[index];
+    function openInfoWindow(data, map, marker, infoWindow, index) {
+        let item = data[index];
         item['infoWindow'] = infoWindow;
 
         marker.addListener('click', function (e) {
-            closeInfoWindows();
+            closeInfoWindows(data);
             infoWindow.open(map, marker)
         });
     }
 
-    function closeInfoWindows() {
-        for (i = 0; i < parlorsData.length; i++) {
-            parlorsData[i]['infoWindow'].close();
+    function closeInfoWindows(data) {
+        for (i = 0; i < data.length; i++) {
+            data[i]['infoWindow'].close();
         }
     }
 </script>
-<%= render 'shared/google_maps_url' %>
