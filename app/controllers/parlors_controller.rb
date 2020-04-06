@@ -1,5 +1,10 @@
 class ParlorsController < ApplicationController
   def index
+    @parlors = Parlor.all
+  end
+
+  def show
+    @parlor = Parlor.find(params[:id])
   end
 
   def new
