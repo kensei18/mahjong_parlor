@@ -4,29 +4,26 @@
     let parlorsData = <%= raw @parlors.to_json %>;
 
     function initMap() {
+        let marker;
+        let infoWindow;
+        let contentString;
+
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.659487, lng: 139.699901},
             zoom: 16,
             gestureHandling: 'cooperative'
         });
-        addMarkers();
-    }
-
-    function addMarkers() {
-        let marker;
-        let infoWindow;
-        let contentString;
 
         for (let i = 0; i < parlorsData.length; i++) {
             let item = parlorsData[i];
 
             marker = new google.maps.Marker({
-                position: {'lat': item['latitude'], 'lng': item['longitude']},
+                position: {'lat': parseFloat(item['latitude']), 'lng': parseFloat(item['longitude'])},
                 map: map
             });
 
             contentString = "<div class='map-window'>";
-            contentString += `<h4><strong><a href=`+ `/parlors/${item['id']}` + ">" + item['name'] + "</a></strong></h4>";
+            contentString += "<h4><strong><a href=" + `/parlors/${item['id']}` + ">" + item['name'] + "</a></strong></h4>";
             contentString += "<p>" + item['address'] + "</p>";
             contentString += "</div>";
             infoWindow = new google.maps.InfoWindow({
