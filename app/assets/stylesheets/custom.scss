@@ -21,6 +21,7 @@
 // 4.1.2. Registration Form
 // 4.2. Users Form
 // 4.2.1 Users Edit Form
+// 5. Flash
 
 // 0. Fundamental CSS
 $xs-width: 768px;
@@ -261,4 +262,9 @@ footer {
 // 4.2.1 Users Edit Form
 .nav-stacked {
   padding-top: 50px;
+}
+
+// 5. Flash
+.alert {
+  margin-top: 20px;
 }
