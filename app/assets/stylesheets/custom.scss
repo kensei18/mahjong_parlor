@@ -243,6 +243,10 @@ footer {
 }
 
 // 4.2. Users Form
+.users-form h2 {
+  text-align: center;
+}
+
 .actions .btn {
   @extend .form-btn;
   font-size: 16px;
