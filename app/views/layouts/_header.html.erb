@@ -10,11 +10,27 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <%= link_to "Mahjong Parlor" ,root_path, id: "header-logo" %>
+        <%= link_to "Mahjong Parlor", root_path, id: "header-logo" %>
       </div>
       <div class="collapse navbar-collapse" id="navbar-content">
         <ul class="nav navbar-nav navbar-right">
+          <!--  TODO  -->
+          <!--  ログインの要不要は作業の邪魔なので後ほど  -->
           <li><%= link_to "雀荘登録", new_parlor_path %></li>
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                 aria-expanded="false">
+                <%= current_user.username %> <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "プロフィール編集", edit_user_registration_path %></li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "アカウント登録", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
         </ul>
       </div>
     </nav>

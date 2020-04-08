@@ -12,12 +12,15 @@
 // 1.2. Header Menu
 // 2. Footer
 // 2.1. Footer Logo
+// 2.2. Footer Menu
 // 3. Map
 // 4. Form
 // 4.0. Error Message
-// 4.1. Parlor Form
+// 4.1. Parlors Form
 // 4.1.1. Search Form
 // 4.1.2. Registration Form
+// 4.2. Users Form
+// 4.2.1 Users Edit Form
 
 // 0. Fundamental CSS
 $xs-width: 768px;
@@ -44,6 +47,7 @@ html, body {
   height: 60px;
   background-color: darkcyan;
   border: none;
+
   .navbar-collapse {
     padding: 0 15px;
   }
@@ -82,16 +86,30 @@ button.navbar-toggle {
 }
 
 // 1.2. Header Menu
-.navbar-default .navbar-nav li a {
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 20px 15px;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: #DADADA;
+.navbar-default .navbar-nav {
+  li a {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 15px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #DADADA;
+    }
+  }
+
+  .dropdown-menu li a {
+    color: #666666;
+    padding: 5px 45px;
+    transition: background-color 0.2s;
+
+    &:hover {
+      color: black;
+    }
   }
 }
+
 
 @media (max-width: $xs-width) {
   .navbar-default .navbar-nav li a {
@@ -104,6 +122,7 @@ footer {
   width: 100%;
   height: 60px;
   margin-top: 30px;
+
   .footer-wrapper {
     padding: 10px;
     border-top: solid 1px #BBBBBB;
@@ -127,6 +146,16 @@ footer {
   }
 }
 
+// 2.2. Footer Menu
+.footer-menu ul {
+  list-style: none;
+  padding: 0;
+
+  a {
+    color: #666666;
+  }
+}
+
 // 3. Map
 .map {
   width: 100%;
@@ -144,8 +173,14 @@ footer {
 }
 
 // 4. Form
-.form-control {
+.large-font-form {
   font-size: 20px;
+}
+
+.form-btn {
+  width: 100%;
+  letter-spacing: 7px;
+  font-weight: bold;
 }
 
 // 4.0. Error Message
@@ -154,6 +189,7 @@ footer {
   border: solid 5px #ff4f4c;
   border-radius: 5px;
   margin-bottom: 20px;
+
   h4 {
     color: red;
   }
@@ -161,16 +197,22 @@ footer {
 
 .field_with_errors {
   @extend .has-error;
+
   .form-control {
     color: #ff4f4c;
     border-color: #ff4f4c;
   }
 }
 
-// 4.1. Parlor Form
+// 4.1. Parlors Form
 // 4.1.1. Search Form
 .search-form {
   margin: 40px auto;
+
+  .form-control {
+    @extend .large-font-form;
+  }
+
   .btn {
     font-weight: bold;
   }
@@ -185,14 +227,32 @@ footer {
 // 4.1.2. Registration Form
 .registration-form {
   margin-top: 30px;
+
+  .readonly {
+    font-size: 12px;
+  }
+
   .btn {
-    width: 100%;
+    @extend .form-btn;
     font-size: 18px;
-    letter-spacing: 7px;
-    font-weight: bold;
   }
 }
 
-.readonly {
-  font-size: 12px;
+#parlor_name {
+  @extend .large-font-form
+}
+
+// 4.2. Users Form
+.actions .btn {
+  @extend .form-btn;
+  font-size: 16px;
+}
+
+#account-links {
+  margin-top: 20px;
+}
+
+// 4.2.1 Users Edit Form
+.nav-stacked {
+  padding-top: 50px;
 }

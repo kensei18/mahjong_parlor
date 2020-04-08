@@ -2,13 +2,14 @@ ja:
   activerecord:
     attributes:
       user:
+        username: "ユーザー名"
         current_password: "現在のパスワード"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "確認用パスワード"
-        remember_me: "ログインを記憶"
+        remember_me: "ログインしたままにする"
     models:
-      user: "ユーザ"
+      user: "ユーザー"
   devise:
     confirmations:
       new:

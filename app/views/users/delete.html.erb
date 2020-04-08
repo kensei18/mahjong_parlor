@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1 col-xs-8 col-xs-offset-2">
+      <h3>アカウントを削除する</h3>
+      <p>
+        本当に良いですか？
+        <%= button_to "Cancel my account", registration_path(resource_name), class: 'btn btn-danger',
+                      data: { confirm: "削除しても良いですか？" }, method: :delete %>
+      </p>
+    </div>
+  </div>
+</div>
