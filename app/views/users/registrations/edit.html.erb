@@ -27,9 +27,7 @@
           <p>(編集内容保存のため、現在のパスワードをご記入ください)</p>
           <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password" %>
           <br>
-          <div class="actions">
-            <%= f.submit "保存", class: 'btn btn-info' %>
-          </div>
+          <%= f.submit "保存", class: 'btn btn-info' %>
         <% end %>
         <br>
         <%= link_to "元に戻す", :back %>

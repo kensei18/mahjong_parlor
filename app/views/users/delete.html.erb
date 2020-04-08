@@ -8,10 +8,8 @@
         <br>
         <h5>本当に良いですか？</h5>
         <br>
-        <div class="actions">
-          <%= button_to "アカウント削除", registration_path(current_user), class: 'btn btn-danger',
-                        data: { confirm: "削除しても良いですか？" }, method: :delete %>
-        </div>
+        <%= button_to "アカウント削除", registration_path(current_user), class: 'btn btn-danger',
+                      data: { confirm: "削除しても良いですか？" }, method: :delete %>
       </div>
     </div>
   </div>
