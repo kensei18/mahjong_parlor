@@ -46,4 +46,28 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "GET /users/:id/delete" do
+    let(:current_user) { create(:user) }
+
+    before { sign_in current_user }
+
+    context "as a correct user" do
+      before { get delete_user_path(current_user) }
+
+      it 'returns a 200 response' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context "as an incorrect user" do
+      let(:other_user) { create(:user) }
+
+      before { get delete_user_path(other_user) }
+
+      it 'returns a 302 response' do
+        expect(response).to have_http_status(302)
+      end
+    end
+  end
 end
