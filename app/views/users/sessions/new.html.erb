@@ -11,7 +11,7 @@
           <%= f.label :password %><br>
           <%= f.password_field :password, class: 'form-control', autocomplete: "current-password" %>
           <br>
-          <%= f.submit "ログイン", class: 'btn btn-success' %>
+          <%= f.submit "ログイン", class: 'btn btn-success' %><br>
           <br>
           <% if devise_mapping.rememberable? %>
             <%= f.check_box :remember_me %>
