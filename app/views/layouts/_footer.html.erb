@@ -5,9 +5,19 @@
         <div class="col-sm-4">
           <%= link_to "Mahjong Parlor", root_path, id: "footer-logo" %>
         </div>
-        <div class="col-sm-offset-4 col-sm-4">
+        <div class="col-sm-offset-6 col-sm-2">
           <!--  TODO  -->
           <!--  必要なリンクを作成する  -->
+          <div class="footer-menu">
+            <ul>
+              <% if user_signed_in? %>
+                <li><%= link_to "アカウント情報編集", edit_user_registration_path %></li>
+              <% else %>
+                <li><%= link_to "アカウント作成", new_user_registration_path %></li>
+                <li><%= link_to "ログイン", new_user_session_path %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,17 @@
+<div id="account-links">
+  <br>
+  <%- if controller_name != 'sessions' %>
+    <p>すでにアカウントをお持ちの方</p>
+    <%= link_to "こちらからログインしてください", new_session_path(resource_name) %><br>
+  <% end %>
+  <br>
+  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+    <p>まだアカウント登録がお済みでない方</p>
+    <%= link_to "こちらからご登録ください", new_registration_path(resource_name) %><br>
+  <% end %>
+  <br>
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <p>登録情報をお忘れの方</p>
+    <%= link_to "こちらからパスワードを再発行してください", new_password_path(resource_name) %><br>
+  <% end %>
+</div>

@@ -4,11 +4,11 @@ RSpec.describe "Parlors", type: :system do
   it 'has parlors and new_parlor pages working well' do
     visit root_path
 
-    # /
+    expect(current_path).to eq root_path
     expect(title).to eq 'Mahjong Parlor'
 
     within('.content-wrapper') do
-      expect(page).to have_selector 'div#map'
+      expect(page).to have_selector 'div#parlors-index-map'
     end
 
     within('header') do
@@ -17,7 +17,7 @@ RSpec.describe "Parlors", type: :system do
       click_link '雀荘登録'
     end
 
-    # /parlors/new
+    expect(current_path).to eq new_parlor_path
     expect(title).to eq '雀荘登録 | Mahjong Parlor'
 
     within('.search-form') do
@@ -25,7 +25,7 @@ RSpec.describe "Parlors", type: :system do
       expect(page).to have_selector 'button#address-submit'
     end
 
-    expect(page).to have_selector 'div#map'
+    expect(page).to have_selector 'div#parlors-new-map'
 
     within('.registration-form') do
       expect(page).not_to have_selector 'div.error-message'
@@ -53,6 +53,6 @@ RSpec.describe "Parlors", type: :system do
       click_button '登録'
     end
 
-    expect(title).to eq 'Mahjong Parlor'
+    expect(current_path).to eq root_path
   end
 end

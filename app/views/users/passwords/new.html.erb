@@ -1,0 +1,21 @@
+<% provide :title, "パスワード再発行" %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
+      <div class="users-form">
+        <h2>パスワード再発行</h2>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name),
+                     html: { method: :post }) do |f| %>
+          <%= render "users/shared/error_messages", resource: resource %>
+          <br>
+          <%= f.label :email %><br/>
+          <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>
+          <br>
+          <%= f.submit "メール送信", class: 'btn btn-primary' %>
+        <% end %>
+        <br>
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
