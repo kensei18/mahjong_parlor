@@ -10,7 +10,12 @@
           <!--  必要なリンクを作成する  -->
           <div class="footer-menu">
             <ul>
-              <li><%= link_to "アカウント情報編集", edit_user_registration_path %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to "アカウント情報編集", edit_user_registration_path %></li>
+              <% else %>
+                <li><%= link_to "アカウント作成", new_user_registration_path %></li>
+                <li><%= link_to "ログイン", new_user_session_path %></li>
+              <% end %>
             </ul>
           </div>
         </div>
