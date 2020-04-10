@@ -13,10 +13,10 @@ RSpec.describe User, type: :model do
     end
 
     context "when existing a user with the same username" do
-      let!(:user) { create(:user) }
+      let!(:user) { create(:user, username: "ユーザー") }
 
       it 'is invalid' do
-        expect(build(:user)).not_to be_valid
+        expect(build(:user, username: "ユーザー")).not_to be_valid
       end
     end
   end

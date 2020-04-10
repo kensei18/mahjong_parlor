@@ -69,7 +69,7 @@ RSpec.describe "Users", type: :system do
   end
 
   context 'with an existing account' do
-    let!(:user) { create(:user, email: 'user@example.com') }
+    let!(:user) { create(:user,username: "ユーザー", email: 'user@example.com') }
 
     before { visit root_path }
 
@@ -259,6 +259,61 @@ RSpec.describe "Users", type: :system do
       end
     end
 
+    describe 'Delete' do
+      it 'destroys a user' do
+        sign_in user
+        visit edit_user_registration_path
+
+        within('.nav-pills') do
+          within('li.active') do
+            expect(page).to have_link "アカウント情報編集", href: edit_user_registration_path
+            expect(page).not_to have_link "アカウント削除", href: delete_user_path(user)
+          end
+
+          expect(page).to have_link "アカウント削除", href: delete_user_path(user)
+          click_link "アカウント削除"
+        end
+
+        expect(current_path).to eq delete_user_path(user)
+        expect(title).to eq "アカウント削除 | Mahjong Parlor"
+
+        within('.nav-pills') do
+          within('li.active') do
+            expect(page).not_to have_link "アカウント情報編集", href: edit_user_registration_path
+            expect(page).to have_link "アカウント削除", href: delete_user_path(user)
+          end
+        end
+
+        within('.users-form') do
+          expect(page).to have_button "アカウント削除"
+
+          click_button "アカウント削除"
+        end
+
+        expect(current_path).to eq root_path
+
+        within('header') do
+          expect(page).to have_selector 'a', text: "アカウント登録"
+          expect(page).to have_selector 'a', text: "ログイン"
+          expect(page).not_to have_selector 'a', text: "アカウント情報"
+          expect(page).not_to have_selector 'a', text: "ログアウト"
+
+          click_link "ログイン"
+        end
+
+        expect(current_path).to eq new_user_session_path
+
+        within('.users-form') do
+          fill_in "メールアドレス", with: "user@example.com"
+          fill_in "パスワード", with: "password"
+          click_button "ログイン"
+        end
+
+        expect(current_path).to eq new_user_session_path
+        expect(page).to have_selector '.alert'
+      end
+    end
+
     describe 'Reset password' do
       after { ActionMailer::Base.deliveries.clear }
 
@@ -368,6 +423,17 @@ RSpec.describe "Users", type: :system do
 
         within('header') do
           expect(page).to have_selector 'a', text: "テストユーザー"
+        end
+      end
+    end
+
+    describe "Delete as test user" do
+      it "is unable to delete the test user" do
+        sign_in test_user
+        visit delete_user_path(test_user)
+
+        within('.users-form') do
+          expect(page).to have_button "アカウント削除", disabled: true
         end
       end
     end
