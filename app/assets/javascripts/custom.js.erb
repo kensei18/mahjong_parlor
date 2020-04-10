@@ -1,3 +1,4 @@
+// Google Maps
 let isMapsApiLoaded = false;
 
 function checkMapsTurbolinks() {
@@ -10,3 +11,9 @@ function checkMapsTurbolinks() {
         document.body.appendChild(script);
     }
 }
+
+// Header
+document.addEventListener('turbolinks:load', function () {
+    $('.dropdown-toggle').dropdown()
+});
+
