@@ -8,7 +8,7 @@ RSpec.describe "Parlors", type: :system do
     expect(title).to eq 'Mahjong Parlor'
 
     within('.content-wrapper') do
-      expect(page).to have_selector 'div#map'
+      expect(page).to have_selector 'div#parlors-index-map'
     end
 
     within('header') do
@@ -25,7 +25,7 @@ RSpec.describe "Parlors", type: :system do
       expect(page).to have_selector 'button#address-submit'
     end
 
-    expect(page).to have_selector 'div#map'
+    expect(page).to have_selector 'div#parlors-new-map'
 
     within('.registration-form') do
       expect(page).not_to have_selector 'div.error-message'
