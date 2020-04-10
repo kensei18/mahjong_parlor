@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   has_many :followers, through: :passive_relationships, source: :follower
 
-  validates :username, presence: true
+  validates :username, presence: true, uniqueness: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, format: { with: VALID_EMAIL_REGEX }
