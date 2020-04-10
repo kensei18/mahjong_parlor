@@ -18,6 +18,13 @@
             <%= f.label :remember_me %>
           <% end %>
         <% end %>
+        <br>
+        <h5>テストユーザーとしてログインする場合は、下のボタンをクリックしてください</h5>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.hidden_field :email, value: "test@example.com" %>
+          <%= f.hidden_field :password, value: "password" %>
+          <%= f.submit "テストユーザー", class: 'btn btn-warning' %>
+        <% end %>
         <%= render "users/shared/links" %>
       </div>
     </div>

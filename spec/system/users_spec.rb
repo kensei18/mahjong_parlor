@@ -350,4 +350,26 @@ RSpec.describe "Users", type: :system do
       end
     end
   end
+
+  context "with a test user account" do
+    let!(:test_user) { create(:user, :test_user) }
+
+    describe "Login as test user" do
+      it 'clicks just test user login button' do
+        visit new_user_session_path
+
+        within('.users-form') do
+          expect(page).to have_button "テストユーザー"
+
+          click_button "テストユーザー"
+        end
+
+        expect(current_path).to eq root_path
+
+        within('header') do
+          expect(page).to have_selector 'a', text: "テストユーザー"
+        end
+      end
+    end
+  end
 end
