@@ -69,7 +69,7 @@ RSpec.describe "Users", type: :system do
   end
 
   context 'with an existing account' do
-    let!(:user) { create(:user,username: "ユーザー", email: 'user@example.com') }
+    let!(:user) { create(:user, username: "ユーザー", email: 'user@example.com') }
 
     before { visit root_path }
 
