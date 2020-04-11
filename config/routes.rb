@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   end
 
   resources :parlors, only: [:index, :show, :new, :create]
+  resources :reviews, only: [:new]
 end
