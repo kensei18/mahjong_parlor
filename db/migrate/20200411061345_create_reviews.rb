@@ -3,10 +3,10 @@ class CreateReviews < ActiveRecord::Migration[5.2]
     create_table :reviews do |t|
       t.string :title
       t.text :content
-      t.string :smoking
-      t.string :cleanliness
-      t.string :attribute
-      t.string :customer
+      t.integer :smoking
+      t.integer :cleanliness
+      t.integer :attribute
+      t.integer :customer
       t.references :user, foreign_key: true
       t.references :parlor, foreign_key: true
 
