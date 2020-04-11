@@ -8,13 +8,13 @@
         <br>
         <h5>本当に良いですか？</h5>
         <br>
-        <% if current_user.username == "テストユーザー" %>
-          <button class="btn btn-danger" disabled>アカウント削除</button>
-          <br><br>
-          <p>テストユーザーは削除できません</p>
-        <% else %>
+        <% if current_user.admin? %>
           <%= button_to "アカウント削除", registration_path(current_user), class: 'btn btn-danger',
                         data: { confirm: "削除しても良いですか？" }, method: :delete %>
+        <% else %>
+          <button class="btn btn-danger" disabled>アカウント削除</button>
+          <br><br>
+          <p>ユーザーは削除できません</p>
         <% end %>
 
       </div>
