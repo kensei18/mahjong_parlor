@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_105714) do
+ActiveRecord::Schema.define(version: 2020_04_11_125008) do
 
   create_table "parlors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_04_11_105714) do
     t.datetime "updated_at", null: false
     t.decimal "latitude", precision: 10, scale: 7
     t.decimal "longitude", precision: 10, scale: 7
+    t.integer "smoking"
+    t.string "website"
     t.index ["name", "address"], name: "index_parlors_on_name_and_address", unique: true
   end
 
@@ -35,7 +37,6 @@ ActiveRecord::Schema.define(version: 2020_04_11_105714) do
   create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.integer "smoking"
     t.integer "cleanliness"
     t.integer "customer"
     t.bigint "user_id"

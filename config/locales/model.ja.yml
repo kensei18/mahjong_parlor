@@ -18,7 +18,7 @@ ja:
         customer: 打ち手のレベル
 
   enums:
-    review:
+    parlor:
       type:
         no_smoking: 禁煙
         smoking_allowed: 喫煙
