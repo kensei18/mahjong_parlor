@@ -9,10 +9,10 @@ ja:
         address: 住所
         latitude: 緯度
         longitude: 経度
+        smoking: タバコ
       review:
         title: タイトル
         content: 詳細
-        smoking: タバコ
         cleanliness: 清潔さ
         service: 接客態度
         customer: 打ち手のレベル
