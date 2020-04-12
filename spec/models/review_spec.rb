@@ -35,6 +35,14 @@ RSpec.describe Review, type: :model do
     end
   end
 
+  describe "overall validation" do
+    context "without overall review" do
+      it 'is invalid' do
+        expect(build(:review, overall: nil)).not_to be_valid
+      end
+    end
+  end
+
   describe "cleanliness validation" do
     context "without cleanliness review" do
       it 'is invalid' do
