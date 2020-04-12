@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     @review.parlor = @parlor
     if @review.save
       flash[:success] = "新しいレビューを投稿しました！"
-      redirect_to parlor_path(@parlor)
+      redirect_to parlor_url(@parlor)
     else
       render :new
     end
