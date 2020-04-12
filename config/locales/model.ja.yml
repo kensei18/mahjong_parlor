@@ -20,7 +20,7 @@ ja:
 
   enums:
     parlor:
-      type:
+      smoking:
         unknown: 不明
         no_smoking: 禁煙
         smoking_allowed: 喫煙
