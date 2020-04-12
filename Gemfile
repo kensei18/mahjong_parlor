@@ -52,6 +52,7 @@ group :development, :test do
   gem 'capybara', '~> 3.32'
   gem 'debase'
   gem 'ruby-debug-ide'
+  gem 'rails-controller-testing'
 end
 
 group :development do
