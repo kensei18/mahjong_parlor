@@ -55,4 +55,22 @@ RSpec.describe Parlor, type: :model do
       end
     end
   end
+
+  describe "#format_address" do
+    context "with Japan" do
+      let(:parlor) { create(:parlor, address: "日本、〒150-0043 東京都渋谷区道玄坂２丁目１０−１２") }
+
+      it 'removes Japan from address' do
+        expect(parlor.reload.address).to eq "〒150-0043 東京都渋谷区道玄坂２丁目１０−１２"
+      end
+    end
+
+    context "with Japan" do
+      let(:parlor) { create(:parlor, address: "〒150-0043 東京都渋谷区道玄坂２丁目１０−１２") }
+
+      it 'removes Japan from address' do
+        expect(parlor.reload.address).to eq "〒150-0043 東京都渋谷区道玄坂２丁目１０−１２"
+      end
+    end
+  end
 end
