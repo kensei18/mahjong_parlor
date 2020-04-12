@@ -21,6 +21,7 @@ ja:
   enums:
     parlor:
       type:
+        unknown: 不明
         no_smoking: 禁煙
         smoking_allowed: 喫煙
         separation_of_smoking_areas: 分煙
