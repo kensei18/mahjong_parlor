@@ -5,6 +5,7 @@ FactoryBot.define do
     password { 'password' }
 
     trait :test_user do
+      id { 2 }
       username { "テストユーザー" }
       email { "test@example.com" }
     end

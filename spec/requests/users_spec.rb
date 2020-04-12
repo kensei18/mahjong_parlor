@@ -70,4 +70,61 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "PATCH /users" do
+    context "as the test user" do
+      let(:test_user) { create(:user, :test_user) }
+      let(:params) do
+        {
+          user:
+            {
+              username: "User",
+              current_password: "password",
+            },
+        }
+      end
+
+      before do
+        sign_in test_user
+        patch user_registration_path, params: params
+      end
+
+      it 'does not change the username' do
+        expect(test_user.reload.username).to eq "テストユーザー"
+      end
+
+      it 'has a flash message' do
+        expect(flash[:warning]).to eq "テストユーザーのアカウント情報は操作できません"
+      end
+
+      it 'redirects to root url' do
+        expect(response).to redirect_to root_url
+      end
+    end
+  end
+
+  describe "DELETE /users" do
+    context "as the test user" do
+      let(:test_user) { create(:user, :test_user) }
+
+      before do |example|
+        sign_in test_user
+        unless example.metadata[:skip_before]
+          delete user_registration_path
+        end
+      end
+
+      it 'does not change User count', :skip_before do
+        expect { subject }.to change(User, :count).by(0)
+      end
+
+      it 'has a flash message' do
+        expect(flash[:warning]).to eq "テストユーザーのアカウント情報は操作できません"
+      end
+
+      it 'redirects to root url' do
+        expect(response).to redirect_to root_url
+      end
+    end
+  end
 end
