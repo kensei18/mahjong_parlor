@@ -1,5 +1,5 @@
 class Parlor < ApplicationRecord
-  has_many :review
+  has_many :reviews
 
   enum smoking: {
     no_smoking: 0,
