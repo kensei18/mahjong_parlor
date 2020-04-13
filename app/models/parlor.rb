@@ -10,15 +10,24 @@ class Parlor < ApplicationRecord
 
   before_validation :format_address
 
+  before_save :downcase_website
+
   validates :name,      presence: true, uniqueness: { scope: :address }
   validates :address,   presence: true
   validates :latitude,  presence: true
   validates :longitude, presence: true
+
+  VALID_URL_REGEX = /https?:\/\/[\w\/:%#\$&\?\(\)~\.=\+\-]+/i.freeze
+  validates :website, format: { with: VALID_URL_REGEX }
 
   private
 
   def format_address
     japan = "日本、"
     address.delete! japan if address.start_with?(japan)
+  end
+
+  def downcase_website
+    website.downcase!
   end
 end
