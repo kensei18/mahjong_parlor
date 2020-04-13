@@ -362,7 +362,7 @@ customer_sample = (1..5).to_a
 
 (1..11).each do |i|
   reviews[i].count.times do |j|
-    review = Parlor.find(i).reviews.create(
+    Parlor.find(i).reviews.create(
       title: reviews[i][j][:title],
       content: reviews[i][j][:content],
       overall: overall_sample.sample,
