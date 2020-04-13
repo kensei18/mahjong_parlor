@@ -1,4 +1,4 @@
-User.create!(
+User.create(
   [
     {
       id: 1,
@@ -15,3 +15,13 @@ User.create!(
     },
   ]
 )
+
+30.times do |n|
+  username = Faker::Name.name
+  email = "user#{n}@example.com"
+  User.create(
+    username: username,
+    email: email,
+    password: "password"
+  )
+end

@@ -41,6 +41,7 @@ gem 'devise', '~> 4.7.1'
 gem 'devise-i18n'
 
 gem 'enum_help'
+gem 'faker', '~> 2.11.0'
 
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.4.1'
