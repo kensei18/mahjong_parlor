@@ -369,7 +369,7 @@ customer_sample = (1..5).to_a
       cleanliness: cleanliness_sample.sample,
       service: service_sample.sample,
       customer: customer_sample.sample,
-      user_id: j + 2,
+      user_id: j + 3,
     )
   end
 end
