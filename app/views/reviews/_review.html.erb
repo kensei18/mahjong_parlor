@@ -1,0 +1,22 @@
+<div class="col-md-4 col-sm-6 col-xs-12">
+  <div class="review-index">
+    <div class="thumbnail">
+      <h6>
+        <%= link_to review.user.username, user_path(review.user) %>さんのレビュー
+      </h6>
+      <hr>
+      <label><%= Review.human_attribute_name(:overall) %>：</label>
+      <% review.overall.times do %>
+        <span class="glyphicon glyphicon-star review-star"></span>
+      <% end %>
+      <% review.blank_stars(:overall).times do %>
+        <span class="glyphicon glyphicon-star review-unstar"></span>
+      <% end %>
+      <h4><strong><%= review.title %></strong></h4>
+      <hr>
+      <p><%= review.shorten_content %></p>
+      <a href="#" data-toggle="modal" data-target="#review-modal-<%= review.id %>">詳しく見る</a>
+    </div>
+  </div>
+</div>
+<%= render 'reviews/review_modal', review: review %>

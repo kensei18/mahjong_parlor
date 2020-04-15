@@ -66,4 +66,41 @@ RSpec.describe Review, type: :model do
       end
     end
   end
+
+  describe "#blank_stars" do
+    let(:review) do
+      create(:review,
+             overall: 4,
+             cleanliness: 5,
+             service: 2,
+             customer: 1)
+    end
+
+    it "returns correct blank stars count" do
+      expect(review.blank_stars(:overall)).to eq 1
+      expect(review.blank_stars(:cleanliness)).to eq 0
+      expect(review.blank_stars(:service)).to eq 3
+      expect(review.blank_stars(:customer)).to eq 4
+    end
+  end
+
+  describe "#shorten_content" do
+    let(:review) { create(:review, content: content) }
+
+    context "with 40 or less characters content" do
+      let(:content) { "あ" * 40 }
+
+      it "returns a row content" do
+        expect(review.shorten_content).to eq review.content
+      end
+    end
+
+    context "with content over 40 characters" do
+      let(:content) { "あ" * 41 }
+
+      it "returns a shortened content" do
+        expect(review.shorten_content).to eq "あ" * 40 + "..."
+      end
+    end
+  end
 end

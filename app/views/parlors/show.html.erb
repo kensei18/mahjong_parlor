@@ -1,0 +1,34 @@
+<% provide :title, @parlor.name %>
+<div class="container">
+  <div class="parlor-detail">
+    <div class="row">
+      <div class="col-sm-6 col-md-offset-1 col-xs-12">
+        <h2><strong><%= @parlor.name %></strong></h2>
+        <br>
+        <h5><strong>住所</strong></h5>
+        <h5><%= @parlor.address %></h5>
+        <br>
+        <h5><strong>URL</strong></h5>
+        <h5>
+          <% if @parlor.website.blank? %>
+            （登録されていません）
+          <% else %>
+            <%= link_to @parlor.website, @parlor.website %>
+          <% end %>
+        </h5>
+        <br>
+        <h5><%= @parlor.smoking_i18n %></h5>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div id="parlors-show-map"></div>
+        <%= link_to "地図アプリで見る",
+                    "https://www.google.co.jp/maps?q=#{@parlor.latitude},#{@parlor.longitude}",
+                    target: '_blank', rel: 'noopener noreferrer' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= render @reviews %>
+  </div>
+</div>
+<%= render 'show_map_script' %>

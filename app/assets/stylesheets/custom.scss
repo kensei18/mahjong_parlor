@@ -23,6 +23,10 @@
 // 4.2.1 Users Edit Form
 // 4.3 Reviews Form
 // 5. Flash
+// 6. Index
+// 6.1 Reviews Index
+// 7. Modal
+// 7.1. Review Modal
 
 // 0. Fundamental CSS
 $xs-width: 768px;
@@ -66,7 +70,7 @@ button.navbar-toggle {
 
 @media (max-width: $xs-width) {
   .navbar-default .navbar-collapse {
-    background-color: #00478b;
+    background-color: darkcyan;
   }
 }
 
@@ -359,4 +363,52 @@ footer {
 // 5. Flash
 .alert {
   margin-top: 20px;
+}
+
+// 6. Index
+// 6.1 Reviews Index
+.parlor-detail {
+  margin: 20px 0;
+}
+
+#parlors-show-map {
+  width: 100%;
+  height: 300px;
+}
+
+.review-index {
+  height: 250px;
+  margin: 15px 0;
+
+  .thumbnail {
+    background-color: aliceblue;
+    padding: 4px 10px;
+  }
+}
+
+.review-star {
+  color: gold;
+}
+
+.review-unstar {
+  color: gray;
+}
+
+// 7. Modal
+// 7.1. Review Modal
+.modal-dialog {
+  margin: 50px 10px;
+}
+
+@media (min-width: $xs-width) {
+  .modal-dialog {
+    margin: 70px auto;
+  }
+}
+
+.modal-body {
+  label {
+    width: 120px;
+    text-align: right;
+  }
 }

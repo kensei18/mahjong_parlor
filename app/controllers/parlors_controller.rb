@@ -5,6 +5,7 @@ class ParlorsController < ApplicationController
 
   def show
     @parlor = Parlor.find(params[:id])
+    @reviews = @parlor.reviews.includes(:user)
   end
 
   def new
