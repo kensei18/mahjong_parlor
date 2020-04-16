@@ -25,6 +25,3 @@ class Review < ApplicationRecord
     end
   end
 end
-
-
-
