@@ -148,7 +148,7 @@ RSpec.describe "Reviews", type: :request do
         end
 
         it "has a flash message" do
-          expect(flash[:success]).to eq "レビューを編集しました"
+          expect(flash[:success]).to eq "レビューを編集しました！"
         end
       end
 

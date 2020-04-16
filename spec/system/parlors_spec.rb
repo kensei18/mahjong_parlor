@@ -113,4 +113,37 @@ RSpec.describe "Parlors", type: :system do
       end
     end
   end
+
+  describe "Delete parlor" do
+    let(:parlor) { create(:parlor) }
+    let(:admin_user) { create(:user, admin: true) }
+    let(:other_user) { create(:user) }
+
+    it "has delete-parlor function working well" do
+      visit parlor_path(parlor)
+
+      within('.parlor-detail') do
+        expect(page).not_to have_link "登録を削除"
+      end
+
+      sign_in other_user
+      visit parlor_path(parlor)
+
+      within('.parlor-detail') do
+        expect(page).not_to have_link "登録を削除"
+      end
+
+      sign_in admin_user
+      visit parlor_path(parlor)
+
+      within('.parlor-detail') do
+        expect(page).to have_link "登録を削除"
+
+        expect { click_on "登録を削除" }.to change(Parlor, :count).by(-1)
+      end
+
+      expect(current_path).to eq root_path
+      expect(page).to have_text "#{parlor.name}を削除しました"
+    end
+  end
 end

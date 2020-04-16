@@ -1,4 +1,7 @@
 class ParlorsController < ApplicationController
+  before_action :authenticate_user!, only: [:destroy]
+  before_action :check_admin, only: [:destroy]
+
   def index
     @parlors = Parlor.all
   end
@@ -33,6 +36,13 @@ class ParlorsController < ApplicationController
     end
   end
 
+  def destroy
+    name = @parlor.name
+    @parlor.destroy
+    flash[:warning] = "#{name}を削除しました"
+    redirect_to root_url
+  end
+
   private
 
   def create_parlor_params
@@ -41,5 +51,10 @@ class ParlorsController < ApplicationController
 
   def update_parlor_params
     params.require(:parlor).permit(:website, :smoking)
+  end
+
+  def check_admin
+    @parlor = Parlor.find(params[:id])
+    redirect_to parlor_url(@parlor) unless current_user.admin?
   end
 end

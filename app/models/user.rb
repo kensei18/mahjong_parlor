@@ -16,7 +16,7 @@ class User < ApplicationRecord
 
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
 

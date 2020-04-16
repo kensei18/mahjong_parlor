@@ -10,7 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources(:parlors) do
-    resources :reviews, shallow: true
+  resources(:parlors, only: [:index, :create, :new, :show, :update, :destroy]) do
+    resources :reviews, shallow: true,
+                        only: [:create, :new, :edit, :update, :destroy]
   end
 end

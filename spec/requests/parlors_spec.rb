@@ -108,4 +108,62 @@ RSpec.describe "Parlors", type: :request do
       end
     end
   end
+
+  describe "DELETE /parlors/:id" do
+    subject { delete parlor_path(parlor) }
+
+    let!(:parlor) { create(:parlor) }
+
+    context "as an admin user" do
+      let(:admin_user) { create(:user, admin: true) }
+
+      before do |example|
+        sign_in admin_user
+        delete parlor_path(parlor) unless example.metadata[:skip_before]
+      end
+
+      it "destroys the parlor", :skip_before do
+        expect { subject }.to change(Parlor, :count).by(-1)
+      end
+
+      it "redirects to root url" do
+        expect(response).to redirect_to root_url
+      end
+
+      it "has a warning flash message" do
+        expect(flash[:warning]).to eq "#{parlor.name}を削除しました"
+      end
+    end
+
+    context "as a user without admin" do
+      let(:not_admin_user) { create(:user) }
+
+      before do |example|
+        sign_in not_admin_user
+        delete parlor_path(parlor) unless example.metadata[:skip_before]
+      end
+
+      it "destroys the parlor", :skip_before do
+        expect { subject }.to change(Parlor, :count).by(0)
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to parlor_url(parlor)
+      end
+    end
+
+    context "when not logged in" do
+      before do |example|
+        delete parlor_path(parlor) unless example.metadata[:skip_before]
+      end
+
+      it "destroys the parlor", :skip_before do
+        expect { subject }.to change(Parlor, :count).by(0)
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end
