@@ -36,7 +36,7 @@ RSpec.describe "Parlors", type: :system do
         expect(page).to have_field '経度'
         expect(page).to have_button '登録'
 
-        click_button '登録'
+        expect { click_button '登録' }.to change(Parlor, :count).by(0)
       end
 
       expect(title).to eq '雀荘登録 | Mahjong Parlor'
@@ -51,7 +51,7 @@ RSpec.describe "Parlors", type: :system do
         fill_in '住所', with: '東京都渋谷区道玄坂２丁目１０−１２'
         fill_in '緯度', with: 35.6588497
         fill_in '経度', with: 139.6990777
-        click_button '登録'
+        expect { click_button '登録' }.to change(Parlor, :count).by(1)
       end
 
       expect(current_path).to eq root_path

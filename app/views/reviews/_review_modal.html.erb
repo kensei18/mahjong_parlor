@@ -32,6 +32,8 @@
       <div class="modal-footer">
         <% if current_user == review.user %>
           <%= link_to "レビュー編集", edit_review_path(review), class: 'btn btn-primary' %>
+          <%= link_to "レビュー削除", review_path(review), class: 'btn btn-danger',
+                      method: :delete, data: { confirm: "削除しても良いですか？" } %>
         <% end %>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>

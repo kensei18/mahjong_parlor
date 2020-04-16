@@ -36,7 +36,7 @@ RSpec.describe "Users", type: :system do
           fill_in "メールアドレス", with: ""
           fill_in "パスワード", with: ""
           fill_in "確認用パスワード", with: ""
-          click_button "アカウント登録"
+          expect { click_button "アカウント登録" }.to change(User, :count).by(0)
         end
 
         expect(title).to eq "アカウント登録 | Mahjong Parlor"
@@ -48,7 +48,7 @@ RSpec.describe "Users", type: :system do
           fill_in "メールアドレス", with: "user@example.com"
           fill_in "パスワード", with: "password"
           fill_in "確認用パスワード", with: "password"
-          click_button "アカウント登録"
+          expect { click_button "アカウント登録" }.to change(User, :count).by(1)
         end
 
         expect(current_path).to eq root_path
@@ -86,7 +86,7 @@ RSpec.describe "Users", type: :system do
           fill_in "メールアドレス", with: "user@example.com"
           fill_in "パスワード", with: "password"
           fill_in "確認用パスワード", with: "password"
-          click_button "アカウント登録"
+          expect { click_button "アカウント登録" }.to change(User, :count).by(0)
         end
 
         expect(title).to eq "アカウント登録 | Mahjong Parlor"
@@ -287,7 +287,7 @@ RSpec.describe "Users", type: :system do
         within('.users-form') do
           expect(page).to have_button "アカウント削除"
 
-          click_button "アカウント削除"
+          expect { click_button "アカウント削除" }.to change(User, :count).by(-1)
         end
 
         expect(current_path).to eq root_path

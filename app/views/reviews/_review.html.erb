@@ -19,6 +19,8 @@
       <a href="#" data-toggle="modal" data-target="#review-modal-<%= review.id %>">詳しく見る</a>
       <% if current_user == review.user %>
         <%= link_to "レビュー編集", edit_review_path(review) %>
+        <%= link_to "レビュー削除", review_path(review), method: :delete,
+                    data: { confirm: "削除しても良いですか？" } %>
       <% end %>
     </div>
   </div>

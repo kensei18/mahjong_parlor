@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def new
     @parlor = Parlor.find(params[:parlor_id])
@@ -31,6 +31,14 @@ class ReviewsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    review = Review.find(params[:id])
+    parlor = review.parlor
+    review.destroy
+    flash[:warning] = "レビューを削除しました"
+    redirect_to parlor_url(parlor)
   end
 
   private

@@ -7,7 +7,7 @@ RSpec.describe "Reviews", type: :system do
     let(:other_user) { create(:user) }
     let!(:review) { create(:review, parlor: parlor, user: other_user) }
 
-    it "has posting-review and editing-review pages working well" do
+    it "has review pages working well" do
       visit parlor_path(parlor)
 
       expect(page).to have_selector 'div.review-index', count: 1
@@ -20,6 +20,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text review.title
         expect(page).to have_text review.content
         expect(page).not_to have_link "レビュー編集"
+        expect(page).not_to have_link "レビュー削除"
       end
 
       within('.review-modal') do
@@ -30,6 +31,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text review.title
         expect(page).to have_text review.content
         expect(page).not_to have_link "レビュー編集"
+        expect(page).not_to have_link "レビュー削除"
       end
 
       within('.parlor-detail') do
@@ -46,7 +48,7 @@ RSpec.describe "Reviews", type: :system do
         fill_in "タイトル", with: ""
         fill_in "詳細", with: ""
 
-        click_on "投稿！"
+        expect { click_on "投稿！" }.to change(Review, :count).by(0)
       end
 
       expect(title).to eq "レビュー投稿 | Mahjong Parlor"
@@ -57,7 +59,7 @@ RSpec.describe "Reviews", type: :system do
         fill_in "タイトル", with: "まあまあ"
         fill_in "詳細", with: "そこそこです"
 
-        click_on "投稿！"
+        expect { click_on "投稿！" }.to change(Review, :count).by(0)
       end
 
       expect(title).to eq "レビュー投稿 | Mahjong Parlor"
@@ -84,7 +86,7 @@ RSpec.describe "Reviews", type: :system do
           find("#review_customer_4").choose
         end
 
-        click_on "投稿！"
+        expect { click_on "投稿！" }.to change(Review, :count).by(1)
       end
 
       expect(current_path).to eq parlor_path(parlor)
@@ -99,6 +101,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text "まあまあ"
         expect(page).to have_text "そこそこです"
         expect(page).to have_link "レビュー編集"
+        expect(page).to have_link "レビュー削除"
       end
 
       within all('.review-modal')[0] do
@@ -109,6 +112,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text "まあまあ"
         expect(page).to have_text "そこそこです"
         expect(page).to have_link "レビュー編集"
+        expect(page).to have_link "レビュー削除"
       end
 
       within all('.review-index')[1] do
@@ -119,6 +123,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text review.title
         expect(page).to have_text review.content
         expect(page).not_to have_link "レビュー編集"
+        expect(page).not_to have_link "レビュー削除"
       end
 
       within all('.review-modal')[1] do
@@ -129,6 +134,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text review.title
         expect(page).to have_text review.content
         expect(page).not_to have_link "レビュー編集"
+        expect(page).not_to have_link "レビュー削除"
       end
 
       within('.parlor-detail') do
@@ -159,6 +165,7 @@ RSpec.describe "Reviews", type: :system do
       within('.review-form') do
         expect(page).to have_field "タイトル", with: "まあまあ"
         expect(page).to have_field "詳細", with: "そこそこです"
+        expect(page).to have_link "レビュー削除", href: review_path(test_user.reviews.first)
 
         fill_in "タイトル", with: ""
         fill_in "詳細", with: ""
@@ -204,6 +211,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text "最悪"
         expect(page).to have_text "ダメダメ"
         expect(page).to have_link "レビュー編集"
+        expect(page).to have_link "レビュー削除", href: review_path(test_user.reviews.first)
       end
 
       within all('.review-modal')[0] do
@@ -214,7 +222,17 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_text "最悪"
         expect(page).to have_text "ダメダメ"
         expect(page).to have_link "レビュー編集"
+        expect(page).to have_link "レビュー削除"
+
+        expect { click_on "レビュー削除" }.to change(Review, :count).by(-1)
       end
+
+      expect(current_path).to eq parlor_path(parlor)
+      expect(page).to have_selector '.alert-warning', text: "レビューを削除しました"
+
+      expect(page).to have_selector 'div.review-index', count: 1
+      expect(page).not_to have_link "レビュー編集"
+      expect(page).not_to have_link "レビュー削除"
     end
   end
 end

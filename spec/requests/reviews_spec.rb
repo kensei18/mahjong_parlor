@@ -10,9 +10,7 @@ RSpec.describe "Reviews", type: :request do
 
       before do |example|
         sign_in user
-        unless example.metadata[:skip_before]
-          post(parlor_reviews_path(parlor), params: params)
-        end
+        post(parlor_reviews_path(parlor), params: params) unless example.metadata[:skip_before]
       end
 
       context "when posting a valid review" do
@@ -219,6 +217,54 @@ RSpec.describe "Reviews", type: :request do
       end
 
       it "has a flash message" do
+        expect(flash[:danger]).to eq "ほかのユーザーのレビューは編集できません"
+      end
+    end
+  end
+
+  describe "DELETE /reviews/:id" do
+    subject { delete review_path(review) }
+
+    let!(:review) { create(:review, user: reviewer) }
+    let(:reviewer) { create(:user) }
+    let(:parlor) { review.parlor }
+
+    context "as the same user as a reviewer" do
+      before do |example|
+        sign_in reviewer
+        delete review_path(review) unless example.metadata[:skip_before]
+      end
+
+      it "deletes the review", :skip_before do
+        expect { subject }.to change(Review, :count).by(-1)
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to parlor_url(parlor)
+      end
+
+      it "has a warning flash messsage" do
+        expect(flash[:warning]).to eq "レビューを削除しました"
+      end
+    end
+
+    context "as the user different from a reviewer" do
+      let(:other_user) { create(:user) }
+
+      before do |example|
+        sign_in other_user
+        delete review_path(review) unless example.metadata[:skip_before]
+      end
+
+      it "deletes the review", :skip_before do
+        expect { subject }.to change(Review, :count).by(0)
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to root_url
+      end
+
+      it "has a danger flash messsage" do
         expect(flash[:danger]).to eq "ほかのユーザーのレビューは編集できません"
       end
     end
