@@ -1,0 +1,16 @@
+<% provide :title, "レビュー投稿" %>
+<% provide :url, parlor_reviews_path %>
+<% provide :submit, "投稿！" %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="review-form">
+        <h2>レビュー投稿</h2>
+        <h3><%= @parlor.name %></h3>
+        <%= render 'form', review: @review %>
+        <br>
+        <%= link_to "お店のページへ戻る", parlor_path(@parlor), class: 'btn btn-default' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,12 +2,31 @@ ja:
   activerecord:
     models:
       parlor: 雀荘
+      review: レビュー
     attributes:
       parlor:
         name: 店舗名
         address: 住所
         latitude: 緯度
         longitude: 経度
+        website: URL
+        smoking: タバコ
+      review:
+        title: タイトル
+        content: 詳細
+        overall: 総合評価
+        cleanliness: 清潔さ
+        service: 接客態度
+        customer: 打ち手のレベル
+
+  enums:
+    parlor:
+      smoking:
+        unknown: 不明
+        no_smoking: 禁煙
+        smoking_allowed: 喫煙
+        separation_of_smoking_areas: 分煙
+
   attributes:
     created_at: 作成日
     updated_at: 更新日

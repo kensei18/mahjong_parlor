@@ -1,0 +1,10 @@
+<% provide :title, @parlor.name %>
+<div class="container">
+  <%= render 'parlor_detail', parlor: @parlor %>
+  <hr>
+  <div class="row">
+    <%= render @reviews %>
+  </div>
+</div>
+<%= render 'edit_modal', parlor: @parlor %>
+<%= render 'show_map_script' %>

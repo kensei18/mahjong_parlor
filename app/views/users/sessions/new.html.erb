@@ -11,7 +11,7 @@
           <%= f.label :password %><br>
           <%= f.password_field :password, class: 'form-control', autocomplete: "current-password" %>
           <br>
-          <%= f.submit "ログイン", class: 'btn btn-success' %><br>
+          <%= f.submit "ログイン", class: 'form-btn btn-success' %><br>
           <br>
           <% if devise_mapping.rememberable? %>
             <%= f.check_box :remember_me %>
@@ -23,7 +23,7 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.hidden_field :email, value: "test@example.com" %>
           <%= f.hidden_field :password, value: "password" %>
-          <%= f.submit "テストユーザー", class: 'btn btn-warning' %>
+          <%= f.submit "テストユーザー", class: 'form-btn btn-warning' %>
         <% end %>
         <%= render "users/shared/links" %>
       </div>

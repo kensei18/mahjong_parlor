@@ -21,7 +21,12 @@
 // 4.1.2. Registration Form
 // 4.2. Users Form
 // 4.2.1 Users Edit Form
+// 4.3 Reviews Form
 // 5. Flash
+// 6. Index/Show
+// 6.1 Reviews Index
+// 7. Modal
+// 7.1. Review Modal
 
 // 0. Fundamental CSS
 $xs-width: 768px;
@@ -65,7 +70,7 @@ button.navbar-toggle {
 
 @media (max-width: $xs-width) {
   .navbar-default .navbar-collapse {
-    background-color: #00478b;
+    background-color: darkcyan;
   }
 }
 
@@ -170,7 +175,7 @@ footer {
 }
 
 #parlors-index-map, #parlors-new-map {
-  @extend .map
+  @extend .map;
 }
 
 // 4. Form
@@ -179,9 +184,11 @@ footer {
 }
 
 .form-btn {
+  @extend .btn;
   width: 100%;
   letter-spacing: 7px;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 // 4.0. Error Message
@@ -234,8 +241,7 @@ footer {
     font-size: 12px;
   }
 
-  .btn {
-    @extend .form-btn;
+  .form-btn {
     font-size: 18px;
   }
 }
@@ -250,8 +256,7 @@ footer {
     text-align: center;
   }
 
-  .btn {
-    @extend .form-btn;
+  .form-btn {
     font-size: 16px;
   }
 }
@@ -265,7 +270,135 @@ footer {
   padding-top: 50px;
 }
 
+// 4.3 Reviews Form
+.review-form {
+  h2 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  label {
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  input.form-control {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  textarea.form-control {
+    height: 200px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  .form-btn {
+    font-size: 18px;
+  }
+}
+
+.star-rating {
+  font-size: 0;
+  white-space: nowrap;
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjREREREREIiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+
+.star-rating i {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20%;
+  z-index: 1;
+  background: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwIDIwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cG9seWdvbiBmaWxsPSIjRkZERjg4IiBwb2ludHM9IjEwLDAgMTMuMDksNi41ODMgMjAsNy42MzkgMTUsMTIuNzY0IDE2LjE4LDIwIDEwLDE2LjU4MyAzLjgyLDIwIDUsMTIuNzY0IDAsNy42MzkgNi45MSw2LjU4MyAiLz48L3N2Zz4=');
+  background-size: contain;
+}
+
+.star-rating input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  display: inline-block;
+  width: 20%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 2;
+  position: relative;
+}
+
+.star-rating input:hover + i, .star-rating input:checked + i {
+  opacity: 1;
+}
+
+.star-rating i ~ i {
+  width: 40%;
+}
+
+.star-rating i ~ i ~ i {
+  width: 60%;
+}
+
+.star-rating i ~ i ~ i ~ i {
+  width: 80%;
+}
+
+.star-rating i ~ i ~ i ~ i ~ i {
+  width: 100%;
+}
+
 // 5. Flash
 .alert {
   margin-top: 20px;
 }
+
+// 6. Index/Show
+// 6.1 Reviews Index
+.parlor-detail {
+  margin: 20px 0;
+}
+
+#parlors-show-map {
+  width: 100%;
+  height: 300px;
+}
+
+.review-index {
+  height: 250px;
+  margin: 15px 0;
+
+  .thumbnail {
+    background-color: aliceblue;
+    padding: 4px 10px;
+  }
+}
+
+.review-star {
+  color: gold;
+}
+
+.review-unstar {
+  color: gray;
+}
+
+// 7. Modal
+// 7.1. Review Modal
+.review-modal label {
+  width: 120px;
+  text-align: right;
+}
+

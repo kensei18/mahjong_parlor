@@ -3,7 +3,7 @@
     <%= render 'shared/error_message', object: f.object %>
     <div class="row">
       <div class="col-sm-4">
-        <%= f.label :name, "店舗名" %>
+        <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control', placeholder: "登録名" %><br>
       </div>
       <div class="col-sm-4">
@@ -19,7 +19,7 @@
         <%= f.text_field :longitude, class: 'form-control readonly' %><br>
       </div>
       <div class="col-sm-2 col-sm-offset-0 col-xs-8 col-xs-offset-2">
-        <%= f.submit "登録", class: 'btn btn-info' %>
+        <%= f.submit "登録", class: 'form-btn btn-info' %>
       </div>
     </div>
   <% end %>

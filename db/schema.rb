@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_081413) do
+ActiveRecord::Schema.define(version: 2020_04_12_113116) do
 
   create_table "parlors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_04_06_081413) do
     t.datetime "updated_at", null: false
     t.decimal "latitude", precision: 10, scale: 7
     t.decimal "longitude", precision: 10, scale: 7
+    t.string "website"
+    t.integer "smoking", default: 0
     t.index ["name", "address"], name: "index_parlors_on_name_and_address", unique: true
   end
 
@@ -32,6 +34,22 @@ ActiveRecord::Schema.define(version: 2020_04_06_081413) do
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "cleanliness"
+    t.integer "customer"
+    t.bigint "user_id"
+    t.bigint "parlor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "service"
+    t.integer "overall"
+    t.index ["created_at"], name: "index_reviews_on_created_at"
+    t.index ["parlor_id"], name: "index_reviews_on_parlor_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -41,8 +59,11 @@ ActiveRecord::Schema.define(version: 2020_04_06_081413) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "username", null: false
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reviews", "parlors"
+  add_foreign_key "reviews", "users"
 end

@@ -1,0 +1,27 @@
+<%= form_for(review, url: yield(:url)) do |f| %>
+  <%= render 'shared/error_message', object: f.object %>
+  <div class="row">
+    <div class="col-xs-12">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control', autofocus: true %>
+    </div>
+    <% Review.rating_attributes.each do |attr| %>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
+        <%= f.label attr %>
+        <span class="star-rating" id=<%= "#{attr.to_s}-radio" %>>
+          <% 1.upto(5) do |i| %>
+            <%= f.radio_button attr, i %><i></i>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
+    <div class="col-xs-12">
+      <%= f.label :content %>
+      <%= f.text_area :content, class: 'form-control' %>
+    </div>
+    <br>
+    <div class="col-sm-8 col-sm-offset-2">
+      <%= f.submit yield(:submit), class: 'form-btn btn-info' %>
+    </div>
+  </div>
+<% end %>

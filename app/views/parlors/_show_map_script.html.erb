@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    document.addEventListener('turbolinks:load', function () {
+        checkMapsTurbolinks();
+    });
+
+    function initMap() {
+        isMapsApiLoaded = true;
+
+        let parlorData = <%= raw @parlor.to_json %>;
+        let parlorLatLng = {
+            lat: parseFloat(parlorData['latitude']),
+            lng: parseFloat(parlorData['longitude'])
+        };
+
+        let map = new google.maps.Map(document.getElementById('parlors-show-map'), {
+            center: parlorLatLng,
+            zoom: 16,
+            gestureHandling: 'cooperative'
+        });
+
+        let marker = new google.maps.Marker({
+            position: parlorLatLng,
+            map: map
+        })
+    }
+</script>
