@@ -1,21 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Parlors", type: :request do
-  describe "GET /parlors" do
-    it "returns a 200 response" do
-      get parlors_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
-  describe "GET /parlors/new" do
-    it 'returns a 200 response' do
-      get new_parlor_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
   describe "POST /parlors" do
+    subject { post parlors_path, params: params }
+
+    before do |example|
+      post(parlors_path, params: params) unless example.metadata[:skip_before]
+    end
+
     context "with valid params" do
       let(:params) do
         {
@@ -29,13 +21,12 @@ RSpec.describe "Parlors", type: :request do
         }
       end
 
-      it 'returns a 302 response' do
-        post parlors_path, params: params
-        expect(response).to have_http_status(302)
+      it 'redirects to root url' do
+        expect(response).to redirect_to root_url
       end
 
-      it 'increase the count of parlors by 1' do
-        expect { post parlors_path, params: params }.to change(Parlor, :count).by(1)
+      it 'creates a parlor', :skip_before do
+        expect { subject }.to change(Parlor, :count).by(1)
       end
     end
 
@@ -52,9 +43,68 @@ RSpec.describe "Parlors", type: :request do
         }
       end
 
-      it 'returns a 200 response' do
-        post parlors_path, params: params
-        expect(response).to have_http_status(200)
+      it 'renders new' do
+        expect(response).to render_template :new
+      end
+
+      it 'does not create a parlor', :skip_before do
+        expect { subject }.to change(Parlor, :count).by(0)
+      end
+    end
+  end
+
+  describe "PATCH /parlors/:id" do
+    let(:parlor) { create(:parlor, website: "", smoking: 0) }
+
+    before { patch parlor_path(parlor, params: params) }
+
+    context "with a valid params" do
+      let(:params) do
+        {
+          parlor: {
+            website: "http://www.shibuton.jp/",
+            smoking: "smoking_allowed",
+          },
+        }
+      end
+
+      it "updates website and smoking" do
+        parlor.reload
+        expect(parlor.website).to eq "http://www.shibuton.jp/"
+        expect(parlor.smoking_allowed?).to be_truthy
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to parlor_url(parlor)
+      end
+
+      it "has a success flash message" do
+        expect(flash[:success]).to eq "しぶとんの情報を更新しました！"
+      end
+    end
+
+    context "with an invalid params" do
+      let(:params) do
+        {
+          parlor: {
+            website: "ww.shibuton.jp/",
+            smoking: "",
+          },
+        }
+      end
+
+      it "does not update website and smoking" do
+        parlor.reload
+        expect(parlor.website).to eq ""
+        expect(parlor.unknown?).to be_truthy
+      end
+
+      it "redirects to parlor url" do
+        expect(response).to redirect_to parlor_url(parlor)
+      end
+
+      it "has a success flash message" do
+        expect(flash[:danger]).to eq "入力に不備があり、更新に失敗しました"
       end
     end
   end

@@ -1,54 +1,15 @@
+<% provide :title, "レビュー投稿" %>
+<% provide :url, parlor_reviews_path %>
+<% provide :submit, "投稿！" %>
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="review-form">
         <h2>レビュー投稿</h2>
         <h3><%= @parlor.name %></h3>
-        <%= form_for(@review, url: parlor_reviews_path) do |f| %>
-          <%= render 'shared/error_message', object: f.object %>
-          <div class="row">
-            <div class="col-xs-12">
-              <%= f.label :title %>
-              <%= f.text_field :title, class: 'form-control', autofocus: true %>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
-              <%= f.label :overall %>
-              <span class="star-rating">
-              <% 1.upto(5) do |i| %>
-                <%= f.radio_button :overall, i %><i></i>
-              <% end %></span>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
-              <%= f.label :cleanliness %>
-              <span class="star-rating">
-              <% 1.upto(5) do |i| %>
-                <%= f.radio_button :cleanliness, i %><i></i>
-              <% end %></span>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
-              <%= f.label :service %>
-              <span class="star-rating">
-              <% 1.upto(5) do |i| %>
-                <%= f.radio_button :service, i %><i></i>
-              <% end %></span>
-            </div>
-            <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-2">
-              <%= f.label :customer %>
-              <span class="star-rating">
-              <% 1.upto(5) do |i| %>
-                <%= f.radio_button :customer, i %><i></i>
-              <% end %></span>
-            </div>
-            <div class="col-xs-12">
-              <%= f.label :content %>
-              <%= f.text_area :content, class: 'form-control' %>
-            </div>
-            <br>
-            <div class="col-sm-8 col-sm-offset-2">
-              <%= f.submit "投稿！", class: 'form-btn btn-info' %>
-            </div>
-          </div>
-        <% end %>
+        <%= render 'form', review: @review %>
+        <br>
+        <%= link_to "お店のページへ戻る", parlor_path(@parlor), class: 'btn btn-default' %>
       </div>
     </div>
   </div>

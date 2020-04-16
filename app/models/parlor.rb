@@ -18,7 +18,7 @@ class Parlor < ApplicationRecord
   validates :longitude, presence: true
 
   VALID_URL_REGEX = /https?:\/\/[\w\/:%#\$&\?\(\)~\.=\+\-]+/i.freeze
-  validates :website, format: { with: VALID_URL_REGEX }
+  validates :website, format: { with: VALID_URL_REGEX }, allow_blank: true
 
   private
 
@@ -28,6 +28,6 @@ class Parlor < ApplicationRecord
   end
 
   def downcase_website
-    website.downcase!
+    website.downcase! if website.present?
   end
 end

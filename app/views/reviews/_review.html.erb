@@ -5,6 +5,7 @@
         <%= link_to review.user.username, user_path(review.user) %>さんのレビュー
       </h6>
       <hr>
+      <small>投稿: <%= l review.created_at, format: :short %></small><br>
       <label><%= Review.human_attribute_name(:overall) %>：</label>
       <% review.overall.times do %>
         <span class="glyphicon glyphicon-star review-star"></span>
@@ -16,6 +17,9 @@
       <hr>
       <p><%= review.shorten_content %></p>
       <a href="#" data-toggle="modal" data-target="#review-modal-<%= review.id %>">詳しく見る</a>
+      <% if current_user == review.user %>
+        <%= link_to "レビュー編集", edit_review_path(review) %>
+      <% end %>
     </div>
   </div>
 </div>

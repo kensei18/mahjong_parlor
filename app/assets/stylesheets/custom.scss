@@ -23,7 +23,7 @@
 // 4.2.1 Users Edit Form
 // 4.3 Reviews Form
 // 5. Flash
-// 6. Index
+// 6. Index/Show
 // 6.1 Reviews Index
 // 7. Modal
 // 7.1. Review Modal
@@ -188,6 +188,7 @@ footer {
   width: 100%;
   letter-spacing: 7px;
   font-weight: bold;
+  margin: 10px 0;
 }
 
 // 4.0. Error Message
@@ -365,7 +366,7 @@ footer {
   margin-top: 20px;
 }
 
-// 6. Index
+// 6. Index/Show
 // 6.1 Reviews Index
 .parlor-detail {
   margin: 20px 0;
@@ -396,19 +397,8 @@ footer {
 
 // 7. Modal
 // 7.1. Review Modal
-.modal-dialog {
-  margin: 50px 10px;
+.review-modal label {
+  width: 120px;
+  text-align: right;
 }
 
-@media (min-width: $xs-width) {
-  .modal-dialog {
-    margin: 70px auto;
-  }
-}
-
-.modal-body {
-  label {
-    width: 120px;
-    text-align: right;
-  }
-}

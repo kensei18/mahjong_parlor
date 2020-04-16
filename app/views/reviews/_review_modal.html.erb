@@ -1,4 +1,4 @@
-<div class="modal fade" id="review-modal-<%= review.id %>" tabindex="-1" role="dialog">
+<div class="modal fade review-modal" id="review-modal-<%= review.id %>" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,18 +7,19 @@
         </button>
         <small>
           <%= link_to review.user.username, user_path(review.user) %>さんのレビュー
-        </small>
+        </small><br>
+        <small>投稿: <%= l review.created_at, format: :short %></small>
         <h4><strong><%= review.title %></strong></h4>
       </div>
       <div class="modal-body">
         <div class="row">
-          <% Review.rating_attributes.each do |rating| %>
+          <% Review.rating_attributes.each do |attr| %>
             <div class="col-sm-6 col-sm-offset-0 col-xs-11 col-xs-offset-1">
-              <label><%= Review.human_attribute_name(rating) %>：</label>
-              <% review.send(rating).times do %>
+              <label><%= Review.human_attribute_name(attr) %>：</label>
+              <% review.send(attr).times do %>
                 <span class="glyphicon glyphicon-star review-star"></span>
               <% end %>
-              <% review.blank_stars(rating).times do %>
+              <% review.blank_stars(attr).times do %>
                 <span class="glyphicon glyphicon-star review-unstar"></span>
               <% end %>
             </div>
@@ -29,6 +30,9 @@
         <p><%= review.content %></p>
       </div>
       <div class="modal-footer">
+        <% if current_user == review.user %>
+          <%= link_to "レビュー編集", edit_review_path(review), class: 'btn btn-primary' %>
+        <% end %>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>
     </div>

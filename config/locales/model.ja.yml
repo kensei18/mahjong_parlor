@@ -9,6 +9,7 @@ ja:
         address: 住所
         latitude: 緯度
         longitude: 経度
+        website: URL
         smoking: タバコ
       review:
         title: タイトル

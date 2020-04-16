@@ -56,7 +56,7 @@ RSpec.describe Parlor, type: :model do
     end
   end
 
-  describe "validation for website url format" do
+  describe "validation for website" do
     context "when building a parlor with a valid url" do
       it "is valid" do
         expect(build(:parlor, website: "https://www.mj-octagon.jp/")).to be_valid
@@ -69,6 +69,18 @@ RSpec.describe Parlor, type: :model do
         expect(build(:parlor, website: "https/www.mj-octagon.jp/")).not_to be_valid
         expect(build(:parlor, website: "htt://www.mj-octagon.jp/")).not_to be_valid
         expect(build(:parlor, website: "https://")).not_to be_valid
+      end
+    end
+
+    context "when building a parlor with blank website" do
+      it "is valid" do
+        expect(build(:parlor, website: "")).to be_valid
+      end
+    end
+
+    context "when building a parlor with nil website" do
+      it "is valid" do
+        expect(build(:parlor, website: nil)).to be_valid
       end
     end
   end
