@@ -20,11 +20,13 @@
 // 4.1.1. Search Form
 // 4.1.2. Registration Form
 // 4.2. Users Form
-// 4.2.1 Users Edit Form
-// 4.3 Reviews Form
+// 4.2.1. Users Edit Form
+// 4.3. Reviews Form
+// 4.4. Comments Form
 // 5. Flash
 // 6. Index/Show
-// 6.1 Reviews Index
+// 6.1. Reviews
+// 6.2. Comments
 // 7. Modal
 // 7.1. Review Modal
 
@@ -265,12 +267,12 @@ footer {
   margin-top: 20px;
 }
 
-// 4.2.1 Users Edit Form
+// 4.2.1. Users Edit Form
 .nav-stacked {
   padding-top: 50px;
 }
 
-// 4.3 Reviews Form
+// 4.3. Reviews Form
 .review-form {
   h2 {
     text-align: center;
@@ -361,13 +363,18 @@ footer {
   width: 100%;
 }
 
+// 4.4. Comments Form
+.comment-form textarea.form-control {
+  height: 100px;
+}
+
 // 5. Flash
 .alert {
   margin-top: 20px;
 }
 
 // 6. Index/Show
-// 6.1 Reviews Index
+// 6.1. Reviews
 .parlor-detail {
   margin: 20px 0;
 }
@@ -393,6 +400,11 @@ footer {
 
 .review-unstar {
   color: gray;
+}
+
+// 6.2. Comments
+.delete-comment {
+  text-align: right;
 }
 
 // 7. Modal

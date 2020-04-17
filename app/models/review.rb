@@ -1,6 +1,10 @@
 class Review < ApplicationRecord
+  has_many :comments, dependent: :destroy
+
   belongs_to :user
   belongs_to :parlor
+
+  scope :new_order, -> { order(created_at: :desc) }
 
   validates :title,       presence: true, length: { maximum: 30 }
   validates :content,     presence: true

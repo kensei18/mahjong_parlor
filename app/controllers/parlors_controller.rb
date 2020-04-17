@@ -8,7 +8,7 @@ class ParlorsController < ApplicationController
 
   def show
     @parlor = Parlor.find(params[:id])
-    @reviews = @parlor.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @parlor.reviews.new_order.includes(:user, comments: :user)
   end
 
   def new

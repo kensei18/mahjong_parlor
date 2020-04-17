@@ -3,6 +3,7 @@ ja:
     models:
       parlor: 雀荘
       review: レビュー
+      comment: コメント
     attributes:
       parlor:
         name: 店舗名
@@ -18,6 +19,8 @@ ja:
         cleanliness: 清潔さ
         service: 接客態度
         customer: 打ち手のレベル
+      comment:
+        content: コメント
 
   enums:
     parlor:
