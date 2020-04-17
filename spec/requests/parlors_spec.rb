@@ -5,7 +5,7 @@ RSpec.describe "Parlors", type: :request do
     subject { post parlors_path, params: params }
 
     before do |example|
-      post(parlors_path, params: params) unless example.metadata[:skip_before]
+      subject unless example.metadata[:skip_before]
     end
 
     context "with valid params" do
@@ -119,7 +119,7 @@ RSpec.describe "Parlors", type: :request do
 
       before do |example|
         sign_in admin_user
-        delete parlor_path(parlor) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       it "destroys the parlor", :skip_before do
@@ -140,7 +140,7 @@ RSpec.describe "Parlors", type: :request do
 
       before do |example|
         sign_in not_admin_user
-        delete parlor_path(parlor) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       it "destroys the parlor", :skip_before do
@@ -154,7 +154,7 @@ RSpec.describe "Parlors", type: :request do
 
     context "when not logged in" do
       before do |example|
-        delete parlor_path(parlor) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       it "destroys the parlor", :skip_before do

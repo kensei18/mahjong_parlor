@@ -10,7 +10,7 @@ RSpec.describe "Reviews", type: :request do
 
       before do |example|
         sign_in user
-        post(parlor_reviews_path(parlor), params: params) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       context "when posting a valid review" do
@@ -232,7 +232,7 @@ RSpec.describe "Reviews", type: :request do
     context "as the same user as a reviewer" do
       before do |example|
         sign_in reviewer
-        delete review_path(review) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       it "deletes the review", :skip_before do
@@ -253,7 +253,7 @@ RSpec.describe "Reviews", type: :request do
 
       before do |example|
         sign_in other_user
-        delete review_path(review) unless example.metadata[:skip_before]
+        subject unless example.metadata[:skip_before]
       end
 
       it "deletes the review", :skip_before do

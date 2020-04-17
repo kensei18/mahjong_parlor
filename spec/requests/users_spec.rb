@@ -105,13 +105,13 @@ RSpec.describe "Users", type: :request do
 
   describe "DELETE /users" do
     context "as the test user" do
+      subject { delete user_registration_path }
+
       let(:test_user) { create(:user, :test_user) }
 
       before do |example|
         sign_in test_user
-        unless example.metadata[:skip_before]
-          delete user_registration_path
-        end
+        subject unless example.metadata[:skip_before]
       end
 
       it 'does not change User count', :skip_before do

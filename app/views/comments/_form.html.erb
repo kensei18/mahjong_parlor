@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+  <%= form_for(:comment, url: review_comments_path(review), remote: true) do |f| %>
+    <%= f.text_area :content, class: 'form-control', placeholder: "コメントを書く" %>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+        <%= f.submit "コメントする", class: 'form-btn btn-success' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

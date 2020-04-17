@@ -28,6 +28,14 @@
         <hr>
         <h5><strong><%= Review.human_attribute_name(:content) %></strong></h5>
         <p><%= review.content %></p>
+        <hr>
+        <h5><strong><%= Comment.human_attribute_name(:content) %></strong></h5>
+        <div id="comments-<%= review.id %>">
+          <%= render review.comments %>
+        </div>
+        <div id="comment-form-<%= review.id %>" class="comment-form">
+          <%= render 'comments/form', review: review %>
+        </div>
       </div>
       <div class="modal-footer">
         <% if current_user == review.user %>
