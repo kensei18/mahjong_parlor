@@ -25,7 +25,6 @@ services:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
-      RAILS_ENV: production
     command: bundle exec pumactl start
     tty: true
     stdin_open: true
