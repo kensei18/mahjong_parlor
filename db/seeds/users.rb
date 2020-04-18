@@ -16,12 +16,23 @@ User.create(
   ]
 )
 
-30.times do |n|
+contents = %W(
+麻雀大好き！！！
+天鳳#{(2..9).to_a.sample}段になりました！！
+まだまだ初心者ですが、よろしくお願いします！
+渋谷近辺の雀荘によく行きます
+基本は#{%w(セット フリー).sample}で入ります
+まだ一人では入ったことがないので、このサイトを参考にしたいです！
+フリーで上手くなりたいです！！
+)
+
+40.times do |n|
   username = Faker::Name.name
   email = "user#{n}@example.com"
   User.create(
     username: username,
     email: email,
-    password: "password"
+    password: "password",
+    content: contents.sample
   )
 end

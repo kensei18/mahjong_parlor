@@ -5,7 +5,7 @@
         <%= link_to review.user.username, user_path(review.user) %>さんのレビュー
       </h6>
       <hr>
-      <small>投稿: <%= l review.created_at, format: :short %></small><br>
+      <small>投稿: <%= l review.created_at, format: :long %></small><br>
       <label><%= Review.human_attribute_name(:overall) %>：</label>
       <% review.overall.times do %>
         <span class="glyphicon glyphicon-star review-star"></span>
@@ -13,6 +13,7 @@
       <% review.blank_stars(:overall).times do %>
         <span class="glyphicon glyphicon-star review-unstar"></span>
       <% end %>
+      <h5><strong><%= link_to review.parlor.name, review.parlor %></strong></h5>
       <h4><strong><%= review.title %></strong></h4>
       <hr>
       <p><%= review.shorten_content %></p>
@@ -25,4 +26,4 @@
     </div>
   </div>
 </div>
-<%= render 'reviews/review_modal', review: review %>
+<%= render 'reviews/modal', review: review %>

@@ -8,7 +8,7 @@ class ParlorsController < ApplicationController
 
   def show
     @parlor = Parlor.find(params[:id])
-    @reviews = @parlor.reviews.new_order.includes(:user, comments: :user)
+    @reviews = @parlor.reviews.new_order.includes(:user, comments: :user).page(params[:page]).per(9)
   end
 
   def new
@@ -29,10 +29,10 @@ class ParlorsController < ApplicationController
     parlor = Parlor.find(params[:id])
     if parlor.update_attributes(update_parlor_params)
       flash[:success] = "#{parlor.name}の情報を更新しました！"
-      redirect_to parlor_url(parlor)
+      redirect_to parlor
     else
       flash[:danger] = "入力に不備があり、更新に失敗しました"
-      redirect_to parlor_url(parlor)
+      redirect_to parlor
     end
   end
 
@@ -55,6 +55,6 @@ class ParlorsController < ApplicationController
 
   def check_admin
     @parlor = Parlor.find(params[:id])
-    redirect_to parlor_url(@parlor) unless current_user.admin?
+    redirect_to @parlor unless current_user.admin?
   end
 end

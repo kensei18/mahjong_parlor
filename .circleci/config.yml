@@ -38,7 +38,7 @@ jobs:
           command: docker-compose run app rails db:create db:migrate
       - run:
           name: Run Rspec
-          command: docker-compose run app rspec
+          command: docker-compose run app bash -c 'apt-get install -y chromium-driver && rspec'
 
 workflows:
   version: 2.1

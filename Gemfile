@@ -40,12 +40,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '~> 4.7.1'
 gem 'devise-i18n'
 
-gem 'enum_help'
-gem 'faker', '~> 2.11.0'
-
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'jquery-rails', '~> 4.3.5'
+
+gem 'enum_help'
+gem 'faker', '~> 2.11.0'
+
+gem 'kaminari', '~> 1.1.1'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -56,6 +59,7 @@ group :development, :test do
   gem 'debase'
   gem 'ruby-debug-ide'
   gem 'rails-controller-testing'
+  gem "selenium-webdriver"
 end
 
 group :development do

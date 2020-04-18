@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
   describe "POST /users" do
+    subject { post user_registration_path, params: params }
+
+    before { |example| subject unless example.metadata[:skip_before] }
+
     context "with valid params" do
       let(:params) do
         {
@@ -14,13 +18,13 @@ RSpec.describe "Users", type: :request do
         }
       end
 
-      it 'returns a 302 response' do
-        post user_registration_path, params: params
-        expect(response).to have_http_status(302)
+      it 'creates a new user', :skip_before do
+        expect { subject }.to change(User, :count).by(1)
       end
 
-      it 'creates a new user' do
-        expect { post user_registration_path, params: params }.to change(User, :count).by(1)
+      it 'redirects to root url' do
+        subject
+        expect(response).to redirect_to root_url
       end
     end
 
@@ -35,14 +39,12 @@ RSpec.describe "Users", type: :request do
         }
       end
 
-      before { post user_registration_path, params: params }
-
-      it 'returns a 200 response' do
-        expect(response).to have_http_status(200)
+      it 'does not create a new user', :skip_before do
+        expect { subject }.to change(User, :count).by(0)
       end
 
       it 'renders sign_up page' do
-        expect(response.body).to include "アカウント登録"
+        expect(response).to render_template :new
       end
     end
   end
@@ -55,8 +57,8 @@ RSpec.describe "Users", type: :request do
     context "as a correct user" do
       before { get delete_user_path(current_user) }
 
-      it 'returns a 200 response' do
-        expect(response).to have_http_status(200)
+      it 'renders delete' do
+        expect(response).to render_template :delete
       end
     end
 
@@ -65,8 +67,8 @@ RSpec.describe "Users", type: :request do
 
       before { get delete_user_path(other_user) }
 
-      it 'returns a 302 response' do
-        expect(response).to have_http_status(302)
+      it 'redirects to root url' do
+        expect(response).to redirect_to root_url
       end
     end
   end
@@ -125,6 +127,29 @@ RSpec.describe "Users", type: :request do
       it 'redirects to root url' do
         expect(response).to redirect_to root_url
       end
+    end
+  end
+
+  describe "PATCH /users/:id/update_content" do
+    subject { patch update_content_user_path(user), params: params }
+
+    let(:user) { create(:user, content: "こんにちは") }
+    let(:params) do
+      {
+        user: { content: "始めました" },
+        format: :js,
+      }
+    end
+
+    before { sign_in user }
+
+    it "updates user content" do
+      expect { subject }.to change(user, :content).from("こんにちは").to("始めました")
+    end
+
+    it "renders update_content" do
+      subject
+      expect(response).to render_template :update_content
     end
   end
 end

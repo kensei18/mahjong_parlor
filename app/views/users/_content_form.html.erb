@@ -1,0 +1,5 @@
+<%= form_for(current_user, url: update_content_user_path(current_user), remote: true) do |f| %>
+  <%= f.text_area :content, class: 'form-control' %>
+  <br>
+  <%= f.submit "保存", class: 'btn btn-success' %>
+<% end %>

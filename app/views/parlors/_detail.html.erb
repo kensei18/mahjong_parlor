@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col-sm-5 col-md-offset-1 col-xs-12">
       <h2><strong><%= parlor.name %></strong></h2>
-      <h5><strong>住所</strong></h5>
+      <h5><strong><%= Parlor.human_attribute_name(:address) %></strong></h5>
       <h5><%= parlor.address %></h5>
       <br>
-      <h5><strong>URL</strong></h5>
+      <h5><strong><%= Parlor.human_attribute_name(:website) %></strong></h5>
       <h5>
         <% if parlor.website.blank? %>
           （登録されていません）
@@ -14,7 +14,7 @@
         <% end %>
       </h5>
       <br>
-      <h5><strong>タバコ</strong></h5>
+      <h5><strong><%= Parlor.human_attribute_name(:smoking) %></strong></h5>
       <h5><%= parlor.smoking_i18n %></h5>
       <small><a href="#" data-toggle="modal" data-target="#edit-parlor">情報を編集する</a></small>
       <br>

@@ -404,6 +404,146 @@ RSpec.describe "Users", type: :system do
         expect(current_path).to eq root_path
       end
     end
+
+    describe "Profile Page" do
+      let(:other_user) { create(:user, content: "こんにちは") }
+      let(:parlor) { create(:parlor) }
+      let!(:user_reviews) { create_list(:review, 10, user: user, parlor: parlor) }
+      let!(:other_user_reviews) { create_list(:review, 3, user: other_user, parlor: parlor) }
+      let!(:user_comments) do
+        create_list(:comment, 4, user: user, review: user_reviews[0])
+      end
+      let!(:other_user_comments) do
+        create_list(:comment, 2, user: other_user, review: user_reviews[0])
+      end
+      let!(:users) { create_list(:user, 5) }
+
+      before do
+        users.each do |another_user|
+          another_user.follow(user)
+          other_user.follow(another_user)
+        end
+
+        3.times do |n|
+          user.follow(users[n])
+          users[n].follow(other_user)
+        end
+      end
+
+      it "has user profile pages working well", js: true do
+        visit user_path(user)
+
+        expect(title).to eq "ユーザー | Mahjong Parlor"
+
+        within('.user-detail') do
+          expect(page).to have_text user.username
+          expect(page).to have_text "まだ自己紹介文がありません"
+          expect(page).not_to have_link "自己紹介を編集"
+          expect(page).to have_text "投稿: 10"
+          expect(page).to have_text "コメント: 4"
+          expect(page).to have_text "フォロワー: 5"
+          expect(page).to have_text "フォロー: 3"
+          expect(page).not_to have_link "アカウント情報編集"
+          expect(page).not_to have_link "フォロー"
+        end
+
+        expect(page).to have_selector '.review-index', count: 9
+
+        click_on "次"
+        expect(current_path).to eq user_path(user)
+        expect(page).to have_selector '.review-index', count: 1
+
+        visit user_path(other_user)
+
+        expect(title).to eq "#{other_user.username} | Mahjong Parlor"
+
+        within('.user-detail') do
+          expect(page).to have_text user.username
+          expect(page).to have_text "こんにちは"
+          expect(page).not_to have_link "自己紹介を編集"
+          expect(page).to have_text "投稿: 3"
+          expect(page).to have_text "コメント: 2"
+          expect(page).to have_text "フォロワー: 3"
+          expect(page).to have_text "フォロー: 5"
+          expect(page).not_to have_link "アカウント情報編集"
+          expect(page).not_to have_link "フォロー"
+        end
+
+        expect(page).to have_selector '.review-index', count: 3
+
+        sign_in user
+
+        visit user_path(user)
+
+        within('.user-detail') do
+          expect(page).to have_text user.username
+          expect(page).to have_text "まだ自己紹介文がありません"
+          expect(page).to have_link "自己紹介を編集"
+          expect(page).not_to have_selector 'textarea#user_content'
+          expect(page).not_to have_button "保存"
+          expect(page).to have_text "投稿: 10"
+          expect(page).to have_text "コメント: 4"
+          expect(page).to have_text "フォロワー: 5"
+          expect(page).to have_text "フォロー: 3"
+          expect(page).to have_link "アカウント情報編集", href: edit_user_registration_path
+          expect(page).not_to have_link "フォロー"
+
+          click_on "自己紹介を編集"
+
+          expect(page).not_to have_link "自己紹介を編集"
+          expect(page).to have_selector 'textarea#user_content'
+          expect(page).to have_button "保存"
+
+          find('textarea#user_content').fill_in with: "初めまして"
+          click_on "保存"
+
+          expect(page).to have_text "初めまして"
+          expect(page).to have_link "自己紹介を編集"
+          expect(page).not_to have_selector 'textarea#user_content'
+          expect(page).not_to have_button "保存"
+        end
+
+        visit user_path(other_user)
+
+        within('.user-detail') do
+          expect(page).to have_text user.username
+          expect(page).to have_text "こんにちは"
+          expect(page).not_to have_link "自己紹介を編集"
+          expect(page).to have_text "投稿: 3"
+          expect(page).to have_text "コメント: 2"
+          expect(page).to have_text "フォロワー: 3"
+          expect(page).to have_text "フォロー: 5"
+          expect(page).not_to have_link "アカウント情報編集"
+          expect(page).to have_link "フォロー"
+
+          click_on "フォロー"
+
+          expect(page).to have_link "フォロー解除"
+          expect(page).to have_text "フォロワー: 4"
+        end
+
+        visit user_path(user)
+
+        within('.user-detail') do
+          expect(page).to have_text "フォロー: 4"
+        end
+
+        visit user_path(other_user)
+
+        within('.user-detail') do
+          click_on "フォロー解除"
+
+          expect(page).to have_link "フォロー"
+          expect(page).to have_text "フォロワー: 3"
+        end
+
+        visit user_path(user)
+
+        within('.user-detail') do
+          expect(page).to have_text "フォロー: 3"
+        end
+      end
+    end
   end
 
   context "with a test user account" do

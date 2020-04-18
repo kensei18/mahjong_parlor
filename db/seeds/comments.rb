@@ -13,10 +13,13 @@ comments = %w(
 とりま行ってみます！！
 )
 
-Review.count.times do |i|
-  review = Review.find(i + 1)
-  5.times do |j|
+reviews_count = Review.count
+review_samples = (1..reviews_count).to_a
+
+(reviews_count / 2).times do
+  review = Review.find(review_samples.delete(review_samples.sample))
+  5.times do
     review.comments.create(content: comments.sample,
-                           user_id: j + 3)
+                           user_id: (2..30).to_a.sample)
   end
 end

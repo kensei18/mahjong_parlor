@@ -1,7 +1,9 @@
-<span><small><%= link_to comment.user.username, user_path(comment.user) %></small></span>
-<span><small><%= l comment.created_at, format: :short %></small></span>
-<% if current_user == comment.user %>
-  <small><%= link_to "削除", comment_path(comment), method: :delete, remote: true %></small>
-<% end %>
-<p><%= comment.content %></p>
-<hr>
+<div  class="comments-index">
+  <span><small><%= link_to comment.user.username, user_path(comment.user) %></small></span>
+  <span><small><%= l comment.created_at, format: :long %></small></span>
+  <% if current_user == comment.user %>
+    <small><%= link_to "削除", comment_path(comment), method: :delete, remote: true %></small>
+  <% end %>
+  <p><%= comment.content %></p>
+  <hr>
+</div>
