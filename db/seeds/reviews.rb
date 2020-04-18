@@ -355,21 +355,24 @@ reviews[11] =
     },
   ]
 
-overall_sample = (3..5).to_a
-cleanliness_sample = (3..5).to_a
+overall_sample = (2..5).to_a
+cleanliness_sample = (2..5).to_a
 service_sample = (2..5).to_a
 customer_sample = (1..5).to_a
 
-(1..11).each do |i|
-  reviews[i].count.times do |j|
-    Parlor.find(i).reviews.create(
-      title: reviews[i][j][:title],
-      content: reviews[i][j][:content],
-      overall: overall_sample.sample,
-      cleanliness: cleanliness_sample.sample,
-      service: service_sample.sample,
-      customer: customer_sample.sample,
-      user_id: j + 3,
-    )
+2.times do |n|
+  (1..11).each do |i|
+    reviews[i].count.times do |j|
+      Parlor.find(i).reviews.create(
+        title: reviews[i][j][:title],
+        content: reviews[i][j][:content],
+        overall: overall_sample.sample,
+        cleanliness: cleanliness_sample.sample,
+        service: service_sample.sample,
+        customer: customer_sample.sample,
+        user_id: n * 10 + j + 2,
+        created_at: (1..365).to_a.sample.days.ago
+      )
+    end
   end
 end

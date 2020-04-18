@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   devise_for :users, path_names: { sign_in: 'login', sign_out: 'logout' },
                      controllers: { registrations: 'users/registrations' }
 
-  resources(:users, only: [:index, :show]) do
+  resources(:users, only: [:show]) do
     member do
-      get :delete
+      get :delete, :edit_content
+      patch :update_content
     end
+
+    resources :relationships, shallow: true, only: [:create, :destroy]
   end
 
   resources(:parlors, only: [:index, :create, :new, :show, :update, :destroy]) do

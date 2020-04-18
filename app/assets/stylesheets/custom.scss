@@ -27,6 +27,7 @@
 // 6. Index/Show
 // 6.1. Reviews
 // 6.2. Comments
+// 6.3. Users
 // 7. Modal
 // 7.1. Review Modal
 
@@ -48,6 +49,12 @@ html, body {
 
 .content-wrapper {
   margin-top: 60px;
+}
+
+@media (max-width: $xs-width) {
+  h2 {
+    text-align: center;
+  }
 }
 
 // 1. Header
@@ -385,12 +392,17 @@ footer {
 }
 
 .review-index {
-  height: 250px;
+  height: 290px;
   margin: 15px 0;
 
   .thumbnail {
+    height: 100%;
     background-color: aliceblue;
     padding: 4px 10px;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 
@@ -407,10 +419,50 @@ footer {
   text-align: right;
 }
 
-// 7. Modal
-// 7.1. Review Modal
-.review-modal label {
-  width: 120px;
-  text-align: right;
+// 6.3. Users
+#user_content_form {
+  p {
+    font-size: 18px;
+
+    em {
+      font-size: 16px;
+    }
+  }
 }
 
+.user-status {
+  p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: $xs-width) {
+  #user_content_form {
+    p {
+      font-size: 15px;
+
+      em {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .user-status {
+    p {
+      font-size: 14px;
+    }
+  }
+}
+
+// 7. Modal
+// 7.1. Review Modal
+.review-modal {
+  label {
+    width: 120px;
+    text-align: right;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

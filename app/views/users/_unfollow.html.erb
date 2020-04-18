@@ -1,0 +1,3 @@
+<%= link_to "フォロー解除",
+            relationship_path(current_user.active_relationships.find_by(followed_id: user.id)),
+            method: :delete, class: 'form-btn btn-default', remote: true %>

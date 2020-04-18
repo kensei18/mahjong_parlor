@@ -1,5 +1,6 @@
 %w(
 users
+relationships
 parlors
 reviews
 comments

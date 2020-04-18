@@ -1,0 +1,8 @@
+<% if user.content.present? %>
+  <p class="lead"><%= user.content %></p>
+<% else %>
+  <p><em>まだ自己紹介文がありません</em></p>
+<% end %>
+<% if user == current_user %>
+  <%= link_to "自己紹介を編集", edit_content_user_path(user), remote: true %>
+<% end %>

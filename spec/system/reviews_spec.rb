@@ -14,7 +14,8 @@ RSpec.describe "Reviews", type: :system do
 
       within('.review-index') do
         expect(page).to have_text "#{other_user.username}さんのレビュー"
-        expect(page).to have_link other_user.username
+        expect(page).to have_link other_user.username, href: user_path(other_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 5
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
@@ -25,7 +26,8 @@ RSpec.describe "Reviews", type: :system do
 
       within('.review-modal') do
         expect(page).to have_text "#{other_user.username}さんのレビュー"
-        expect(page).to have_link other_user.username
+        expect(page).to have_link other_user.username, href: user_path(other_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 20
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
@@ -95,7 +97,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-index')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
-        expect(page).to have_link "テストユーザー"
+        expect(page).to have_link "テストユーザー", href: user_path(test_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 4
         expect(page).to have_selector '.review-unstar', count: 1
         expect(page).to have_text "まあまあ"
@@ -106,7 +109,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-modal')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
-        expect(page).to have_link "テストユーザー"
+        expect(page).to have_link "テストユーザー", href: user_path(test_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 16
         expect(page).to have_selector '.review-unstar', count: 4
         expect(page).to have_text "まあまあ"
@@ -117,7 +121,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-index')[1] do
         expect(page).to have_text "#{other_user.username}さんのレビュー"
-        expect(page).to have_link other_user.username
+        expect(page).to have_link other_user.username, href: user_path(other_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 5
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
@@ -128,7 +133,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-modal')[1] do
         expect(page).to have_text "#{other_user.username}さんのレビュー"
-        expect(page).to have_link other_user.username
+        expect(page).to have_link other_user.username, href: user_path(other_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 20
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
@@ -205,7 +211,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-index')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
-        expect(page).to have_link "テストユーザー"
+        expect(page).to have_link "テストユーザー", href: user_path(test_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 1
         expect(page).to have_selector '.review-unstar', count: 4
         expect(page).to have_text "最悪"
@@ -216,7 +223,8 @@ RSpec.describe "Reviews", type: :system do
 
       within all('.review-modal')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
-        expect(page).to have_link "テストユーザー"
+        expect(page).to have_link "テストユーザー", href: user_path(test_user)
+        expect(page).to have_link parlor.name, href: parlor_path(parlor)
         expect(page).to have_selector '.review-star', count: 4
         expect(page).to have_selector '.review-unstar', count: 16
         expect(page).to have_text "最悪"

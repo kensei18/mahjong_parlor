@@ -1,0 +1,15 @@
+<div class="user-detail">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
+      <h2><%= user.username %></h2>
+      <br>
+      <h4><strong><%= User.human_attribute_name(:content) %></strong></h4>
+      <div id="user_content_form">
+        <%= render 'content', user: user %>
+      </div>
+      <br>
+      <%= render 'status', user: user %>
+      <%= render 'follow_form', user: user %>
+    </div>
+  </div>
+</div>

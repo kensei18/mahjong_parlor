@@ -1,10 +1,11 @@
 <% provide :title, @parlor.name %>
 <div class="container">
-  <%= render 'parlor_detail', parlor: @parlor %>
+  <%= render 'detail', parlor: @parlor %>
   <hr>
-  <div class="row">
-    <%= render @reviews %>
-  </div>
+  <h3><strong><%= @parlor.name %>のレビュー</strong></h3>
+  <%= page_entries_info @reviews %>
+  <div class="row"><%= render @reviews %></div>
+  <%= paginate @reviews %>
 </div>
 <%= render 'edit_modal', parlor: @parlor %>
 <%= render 'show_map_script' %>
