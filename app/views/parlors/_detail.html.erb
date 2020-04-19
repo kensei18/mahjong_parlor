@@ -2,25 +2,32 @@
   <div class="row">
     <div class="col-sm-5 col-md-offset-1 col-xs-12">
       <h2><strong><%= parlor.name %></strong></h2>
-      <h5><strong><%= Parlor.human_attribute_name(:address) %></strong></h5>
-      <h5><%= parlor.address %></h5>
-      <br>
-      <h5><strong><%= Parlor.human_attribute_name(:website) %></strong></h5>
-      <h5>
-        <% if parlor.website.blank? %>
-          （登録されていません）
-        <% else %>
-          <%= link_to parlor.website, parlor.website, target: '_blank', rel: 'noopener noreferrer' %>
-        <% end %>
-      </h5>
-      <br>
-      <h5><strong><%= Parlor.human_attribute_name(:smoking) %></strong></h5>
-      <h5><%= parlor.smoking_i18n %></h5>
+      <div class="parlor-attribute">
+        <h5><strong><%= Parlor.human_attribute_name(:address) %></strong></h5>
+        <h5><%= parlor.address %></h5>
+      </div>
+      <div class="parlor-attribute">
+        <h5><strong><%= Parlor.human_attribute_name(:website) %></strong></h5>
+        <h5>
+          <% if parlor.website.blank? %>
+            （登録されていません）
+          <% else %>
+            <%= link_to parlor.website, parlor.website, target: '_blank', rel: 'noopener noreferrer' %>
+          <% end %>
+        </h5>
+      </div>
+      <div class="parlor-attribute">
+        <h5><strong><%= Parlor.human_attribute_name(:smoking) %></strong></h5>
+        <h5><%= parlor.smoking_i18n %></h5>
+      </div>
       <small><a href="#" data-toggle="modal" data-target="#edit-parlor">情報を編集する</a></small>
       <br>
       <%= link_to "レビューを投稿する！", new_parlor_review_path(parlor), class: "form-btn btn-info" %>
-      <% if user_signed_in? && current_user.admin? %>
-        <%= link_to "登録を削除", parlor_path(parlor), method: :delete, class: "form-btn btn-danger" %>
+      <% if user_signed_in? %>
+        <%= render 'favorite_form', parlor: parlor %>
+        <% if current_user.admin? %>
+          <%= link_to "登録を削除", parlor_path(parlor), method: :delete, class: "form-btn btn-danger" %>
+        <% end %>
       <% end %>
       <br>
     </div>
