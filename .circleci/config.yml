@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Run Rspec
           command: |
-            docker-compose run app bash -c 'apt-get install -y chromium-driver && bundle exec rspec'
+            docker-compose run app bash -c 'apt-get install -y chromium-driver && RAILS_ENV=test rspec'
 
 workflows:
   version: 2.1
