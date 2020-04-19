@@ -19,5 +19,15 @@ RSpec.describe Relationship, type: :model do
         expect(relationship).not_to be_valid
       end
     end
+
+    context 'when building an existing relationship again' do
+      let!(:relationship) { create(:relationship, follower: follower, followed: followed) }
+      let(:follower) { create(:user) }
+      let(:followed) { create(:user) }
+
+      it "is invalid" do
+        expect(build(:relationship, follower: follower, followed: followed)).not_to be_valid
+      end
+    end
   end
 end

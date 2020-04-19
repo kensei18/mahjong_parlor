@@ -2,14 +2,16 @@
 let isMapsApiLoaded = false;
 
 function checkMapsTurbolinks() {
-    if (isMapsApiLoaded) {
-        initMap();
-    } else {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.gmap[:js_key] %>&callback=initMap";
-        document.body.appendChild(script);
-    }
+    <% unless Rails.env.test? %>
+      if (isMapsApiLoaded) {
+          initMap();
+      } else {
+          let script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = "https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.gmap[:js_key] %>&callback=initMap";
+          document.body.appendChild(script);
+      }
+    <% end %>
 }
 
 // Header

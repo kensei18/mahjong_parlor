@@ -92,7 +92,7 @@ RSpec.describe User, type: :model do
       let!(:favorite) { create(:favorite, user: user, parlor: parlor) }
 
       it "of user include parlor" do
-        expect(user.parlors).to include parlor
+        expect(user.favorite_parlors).to include parlor
       end
 
       describe "#favorite?" do
