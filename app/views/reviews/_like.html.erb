@@ -1,0 +1,3 @@
+<%= link_to "いいね！", review_likes_path(review),
+            method: :post, remote: true, class: 'form-btn btn-primary' %>
+<p><small id="like_count_<%= review.id %>">いいね！ <%= review.likes.count %>件</small></p>

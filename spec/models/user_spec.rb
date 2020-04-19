@@ -116,4 +116,37 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "like" do
+    let(:user) { create(:user) }
+    let(:review) { create(:review) }
+
+    context "when user likes review" do
+      let!(:like) { create(:like, user: user, review: review) }
+
+      it "of user include review" do
+        expect(user.like_reviews).to include review
+      end
+
+      describe "#like?" do
+        it "returns true" do
+          expect(user).to be_like review
+        end
+      end
+
+      describe "#unlike" do
+        it "destroy a like" do
+          user.unlike review
+          expect(user).not_to be_like review
+        end
+      end
+    end
+
+    describe "#like" do
+      it "creates a like" do
+        user.like review
+        expect(user).to be_like review
+      end
+    end
+  end
 end

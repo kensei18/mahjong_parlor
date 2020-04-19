@@ -23,6 +23,9 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :like_reviews, through: :likes, source: :review
+
   validates :username, presence: true, uniqueness: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
@@ -50,5 +53,17 @@ class User < ApplicationRecord
 
   def favorite?(parlor)
     favorite_parlors.include?(parlor)
+  end
+
+  def like(review)
+    like_reviews << review
+  end
+
+  def unlike(review)
+    likes.find_by(review_id: review.id).destroy
+  end
+
+  def like?(review)
+    like_reviews.include?(review)
   end
 end
