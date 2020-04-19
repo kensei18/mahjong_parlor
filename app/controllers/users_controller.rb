@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @reviews = @user.reviews.new_order.includes(comments: :user).page(params[:page]).per(9)
+    @reviews = @user.reviews.new_order.
+      includes(:parlor, comments: :user).page(params[:page]).per(9)
   end
 
   def delete

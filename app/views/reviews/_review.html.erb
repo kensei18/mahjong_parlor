@@ -16,13 +16,23 @@
       <h5><strong><%= link_to review.parlor.name, review.parlor %></strong></h5>
       <h4><strong><%= review.title %></strong></h4>
       <hr>
-      <p><%= review.shorten_content %></p>
-      <a href="#" data-toggle="modal" data-target="#review-modal-<%= review.id %>">詳しく見る</a>
-      <% if current_user == review.user %>
-        <%= link_to "レビュー編集", edit_review_path(review) %>
-        <%= link_to "レビュー削除", review_path(review), method: :delete,
-                    data: { confirm: "削除しても良いですか？" } %>
-      <% end %>
+      <div class="review-content">
+        <p><%= review.shorten_content %></p>
+        <a href="#" data-toggle="modal" data-target="#review-modal-<%= review.id %>">詳しく見る</a>
+        <% if current_user == review.user %>
+          <%= link_to "レビュー編集", edit_review_path(review) %>
+          <%= link_to "レビュー削除", review_path(review), method: :delete,
+                      data: { confirm: "削除しても良いですか？" } %>
+        <% end %>
+      </div>
+      <div class="review-like-form">
+        <% if user_signed_in? %>
+          <hr>
+          <div id="like_btn_<%= review.id %>" class="like-form">
+            <%= render 'reviews/like_form', review: review %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -1,8 +1,11 @@
 class Review < ApplicationRecord
-  has_many :comments, dependent: :destroy
-
   belongs_to :user
   belongs_to :parlor
+
+  has_many :comments, dependent: :destroy
+
+  has_many :likes, dependent: :destroy
+  has_many :like_users, through: :likes, source: :user
 
   scope :new_order, -> { order(created_at: :desc) }
 

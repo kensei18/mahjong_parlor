@@ -17,7 +17,17 @@
         <hr>
         <h5><strong><%= Review.human_attribute_name(:content) %></strong></h5>
         <p><%= review.content %></p>
-        <hr>
+        <% if user_signed_in? %>
+          <hr>
+          <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+              <div id="modal_like_<%= review.id %>" class="like-form">
+                <%= render 'reviews/like_form', review: review %>
+              </div>
+            </div>
+          </div>
+          <hr>
+        <% end %>
         <h5><strong><%= Comment.human_attribute_name(:content) %></strong></h5>
         <div id="comments-<%= review.id %>">
           <%= render review.comments %>
@@ -30,7 +40,7 @@
       </div>
       <div class="modal-footer">
         <% if current_user == review.user %>
-          <%= link_to "レビュー編集", edit_review_path(review), class: 'btn btn-primary' %>
+          <%= link_to "レビュー編集", edit_review_path(review), class: 'btn btn-warning' %>
           <%= link_to "レビュー削除", review_path(review), class: 'btn btn-danger',
                       method: :delete, data: { confirm: "削除しても良いですか？" } %>
         <% end %>

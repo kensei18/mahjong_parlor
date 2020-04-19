@@ -1,0 +1,4 @@
+var partial = "<%= escape_javascript(render 'reviews/like', review: @review) %>";
+
+$("#like_btn_<%= @review.id %>").html(partial);
+$("#modal_like_<%= @review.id %>").html(partial);

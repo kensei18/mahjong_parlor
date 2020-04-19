@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
     resources(:reviews, shallow: true, only: [:create, :new, :edit, :update, :destroy]) do
       resources :comments, shallow: true, only: [:create, :destroy]
+      resources :likes,    shallow: true, only: [:create, :destroy]
     end
   end
 end
