@@ -1,5 +1,6 @@
 class Parlor < ApplicationRecord
-  has_many :reviews, dependent: :destroy
+  has_many :reviews,   dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   enum smoking: {
     unknown: 0,

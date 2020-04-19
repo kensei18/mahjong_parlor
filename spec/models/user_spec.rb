@@ -53,33 +53,66 @@ RSpec.describe User, type: :model do
       let!(:relationship) { create(:relationship, follower: user1, followed: user2) }
 
       it 'following of user1 include user2' do
-        expect(user1.following).to include(user2)
+        expect(user1.following).to include user2
       end
 
       it 'followers of user2 include user1' do
-        expect(user2.followers).to include(user1)
+        expect(user2.followers).to include user1
       end
 
       it 'returns that user1 is following user2' do
-        expect(user1).to be_following(user2)
+        expect(user1).to be_following user2
       end
 
       it 'returns that user2 is not following user1' do
-        expect(user2).not_to be_following(user1)
+        expect(user2).not_to be_following user1
       end
 
       describe '#unfollow' do
         it 'destroy the relationship that user1 is following user2' do
-          user1.unfollow(user2)
-          expect(user1).not_to be_following(user2)
+          user1.unfollow user2
+          expect(user1).not_to be_following user2
         end
       end
     end
 
     describe '#follow' do
       it 'create a relationship that user1 is following user2' do
-        user1.follow(user2)
-        expect(user1).to be_following(user2)
+        user1.follow user2
+        expect(user1).to be_following user2
+      end
+    end
+  end
+
+  describe 'favorites' do
+    let(:user) { create(:user) }
+    let(:parlor) { create(:parlor) }
+
+    context "when user favors parlor" do
+      let!(:favorite) { create(:favorite, user: user, parlor: parlor) }
+
+      it "of user include parlor" do
+        expect(user.parlors).to include parlor
+      end
+
+      describe "#favorite?" do
+        it "returns true" do
+          expect(user).to be_favorite parlor
+        end
+      end
+
+      describe "#remove_from_favorites" do
+        it "destroys a favorite" do
+          user.remove_from_favorites parlor
+          expect(user).not_to be_favorite parlor
+        end
+      end
+    end
+
+    describe "#add_to_favorites" do
+      it "creates a favorite" do
+        user.add_to_favorites parlor
+        expect(user).to be_favorite parlor
       end
     end
   end

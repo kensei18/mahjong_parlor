@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources(:parlors, only: [:index, :create, :new, :show, :update, :destroy]) do
+    resources :favorites, shallow: true, only: [:create, :destroy]
+
     resources(:reviews, shallow: true, only: [:create, :new, :edit, :update, :destroy]) do
       resources :comments, shallow: true, only: [:create, :destroy]
     end

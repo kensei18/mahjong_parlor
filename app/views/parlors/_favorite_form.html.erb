@@ -1,0 +1,7 @@
+<div id="favorite_form">
+  <% if current_user.favorite?(parlor) %>
+    <%= render 'remove_from_favorite', parlor: parlor %>
+  <% else %>
+    <%= render 'add_to_favorite', parlor: parlor %>
+  <% end %>
+</div>
