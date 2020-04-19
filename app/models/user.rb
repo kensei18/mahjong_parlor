@@ -5,21 +5,23 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :active_relationships, class_name: 'Relationship',
-                                  foreign_key: 'follower_id',
+                                  foreign_key: :follower_id,
                                   dependent: :destroy
 
   has_many :passive_relationships, class_name: 'Relationship',
-                                   foreign_key: 'followed_id',
+                                   foreign_key: :followed_id,
                                    dependent: :destroy
 
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
-  has_many :reviews,   dependent: :destroy
-  has_many :comments,  dependent: :destroy
-  has_many :favorites, dependent: :destroy
+  has_many :reviews,  dependent: :destroy
+  has_many :comments, dependent: :destroy
 
-  has_many :parlors, through: :favorites
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_parlors, through: :favorites, source: :parlor
+
+  has_many :likes, dependent: :destroy
 
   has_many :likes, dependent: :destroy
   has_many :like_reviews, through: :likes, source: :review
@@ -42,7 +44,7 @@ class User < ApplicationRecord
   end
 
   def add_to_favorites(parlor)
-    parlors << parlor
+    favorite_parlors << parlor
   end
 
   def remove_from_favorites(parlor)
@@ -50,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def favorite?(parlor)
-    parlors.include?(parlor)
+    favorite_parlors.include?(parlor)
   end
 
   def like(review)

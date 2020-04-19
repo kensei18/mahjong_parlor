@@ -5,7 +5,7 @@ RSpec.describe "Reviews", type: :system do
     let!(:test_user) { create(:user, :test_user) }
     let(:parlor) { create(:parlor) }
     let(:other_user) { create(:user) }
-    let!(:review) { create(:review, parlor: parlor, user: other_user) }
+    let!(:review) { create(:review, parlor: parlor, user: other_user, created_at: 1.days.ago) }
 
     it "has review pages working well" do
       visit parlor_path(parlor)
