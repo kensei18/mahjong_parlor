@@ -38,7 +38,7 @@ jobs:
           command: sleep 1
       - run:
           name: Setup database
-          command: docker-compose run app rails db:create db:migrate
+          command: docker-compose run app rake db:create db:migrate
       - run:
           name: Run Rspec
           command: |
