@@ -29,13 +29,16 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Build docker-compose image
+          name: Start containers
           command: |
             set -x
-            docker-compose build
+            docker-compose up -d
+      - run:
+          name: sleep for waiting launch db
+          command: sleep 1
       - run:
           name: Setup database
-          command: docker-compose run app bash -c 'rails db:create db:migrate'
+          command: docker-compose run app rails db:create db:migrate
       - run:
           name: Run Rspec
           command: |
