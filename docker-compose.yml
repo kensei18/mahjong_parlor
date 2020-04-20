@@ -21,7 +21,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
     environment:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password

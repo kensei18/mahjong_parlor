@@ -33,15 +33,20 @@ jobs:
           command: |
             set -x
             docker-compose up -d \
-              && curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
           name: Setup database
-          command: docker-compose exec app rails db:create db:migrate
+          command: docker-compose run app rails db:create db:migrate
       - run:
           name: Run Rspec
           command: |
-            docker-compose exec app bash -c \
-              'apt-get install -y chromium-driver && RAILS_ENV=test rspec'
+            mkdir /tmp/test-results
+            docker-compose run app rspec --format progress \
+                                         --format RspecJunitFormatter \
+                                         --out /tmp/test-results/rspec.xml \
+                                         --format progress \
+                                         "$(circleci tests glob "spec/**/*_spec.rb" | \
+                                            circleci tests split --split-by=timings)"
+
 
 workflows:
   version: 2.1
