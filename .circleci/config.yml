@@ -41,13 +41,12 @@ jobs:
           command: bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: Setup database
-          command: bundle exec rails db:create db:migrate
+          command: rails db:create db:migrate
       - run:
           name: Run rspec
           command: |
             mkdir /tmp/test-results
-            bundle exec rspec \
-              --format RspecJunitFormatter \
+            rspec --format RspecJunitFormatter \
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
