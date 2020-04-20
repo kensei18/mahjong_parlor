@@ -33,7 +33,7 @@ jobs:
           command: |
             set -x
             docker-compose up -d
-            docker exec app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+            docker run app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
           name: Setup database
           command: docker-compose exec app rails db:create db:migrate
@@ -41,7 +41,7 @@ jobs:
           name: Run Rspec
           command: |
             docker-compose exec app bash -c \
-              'apt-get install -y chromium-driver && RAILS_ENV=test JRUBY_OPTS=-X+O rspec'
+              'apt-get install -y chromium-driver && RAILS_ENV=test rspec'
 
 workflows:
   version: 2.1
