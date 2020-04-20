@@ -24,25 +24,27 @@ jobs:
   rspec:
     working_directory: ~/mahjong_parlor
     docker:
-      - image: circleci/ruby
+      - image: circleci/ruby:2.6.5-node-browsers
+        environment:
+          - RAILS_ENV: test
+      - image: circleci/mysql:5.7
     steps:
       - checkout
-      - setup_remote_docker
       - run:
-          name: Start containers
-          command: |
-            set -x
-            docker-compose up -d
-      - run:
-          name: sleep for waiting launch db
-          command: sleep 1
+          name: Install gems
+          command: bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: Setup database
-          command: docker-compose run app rake db:create db:migrate
+          command: bundle exec rails db:create db:schema:load
       - run:
-          name: Run Rspec
+          name: Run rspec
           command: |
-            docker-compose run app bash -c 'RAILS_ENV=test && rspec'
+            mkdir /tmp/test-results
+            bundle exec rspec \
+              --format RspecJunitFormatter \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
 
 workflows:
   version: 2.1
