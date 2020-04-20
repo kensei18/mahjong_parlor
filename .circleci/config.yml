@@ -32,24 +32,40 @@ jobs:
           - MYSQL_HOST: db
       - image: circleci/mysql:5.7
         environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD: true
           - MYSQL_USER: root
           - MYSQL_ROOT_PASSWORD: password
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
       - run:
           name: Install gems
           command: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
       - run:
           name: Setup database
-          command: rails db:create db:migrate
+          command: bundle exec rails db:create db:migrate
       - run:
           name: Run rspec
           command: |
             mkdir /tmp/test-results
-            rspec --format RspecJunitFormatter \
+            bundle exec rspec \
+              --format RspecJunitFormatter \
               --out /tmp/test-results/rspec.xml \
               --format progress \
               $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: /tmp/test-results
+            - store_artifacts:
+                path: /tmp/test-results
+                destination: test-results
 
 workflows:
   version: 2.1
