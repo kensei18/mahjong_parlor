@@ -26,13 +26,11 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
-          - RAILS_ENV: test
           - MYSQL_USERNAME: root
           - MYSQL_PASSWORD: password
           - MYSQL_HOST: db
       - image: circleci/mysql:5.7
         environment:
-          - MYSQL_ALLOW_EMPTY_PASSWORD: true
           - MYSQL_USER: root
           - MYSQL_ROOT_PASSWORD: password
     steps:
@@ -51,7 +49,9 @@ jobs:
             - vendor/bundle
       - run:
           name: Setup database
-          command: bundle exec rails db:create db:migrate
+          command: |
+            bundle exec rails db:create
+            bundle exec rails db:schema:load
       - run:
           name: Run rspec
           command: |
