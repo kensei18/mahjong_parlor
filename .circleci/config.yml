@@ -32,8 +32,8 @@ jobs:
           name: Start containers
           command: |
             set -x
-            docker-compose up -d
-            docker run app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
+            docker-compose up -d \
+              && curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost
       - run:
           name: Setup database
           command: docker-compose exec app rails db:create db:migrate
