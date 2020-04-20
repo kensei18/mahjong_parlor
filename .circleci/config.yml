@@ -39,14 +39,8 @@ jobs:
       - run:
           name: Run Rspec
           command: |
-            mkdir /tmp/test-results
-            docker-compose run app rspec --format progress \
-                                         --format RspecJunitFormatter \
-                                         --out /tmp/test-results/rspec.xml \
-                                         --format progress \
-                                         "$(circleci tests glob "spec/**/*_spec.rb" | \
-                                            circleci tests split --split-by=timings)"
-
+            RAILS_ENV=test
+            docker-compose run app rspec
 
 workflows:
   version: 2.1
