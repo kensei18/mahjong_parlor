@@ -444,7 +444,10 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロワー: 5"
           expect(page).to have_text "フォロー: 3"
           expect(page).not_to have_link "アカウント情報編集"
-          expect(page).not_to have_link "フォロー"
+
+          within('#follow_form') do
+            expect(page).not_to have_link "フォロー"
+          end
         end
 
         expect(page).to have_selector '.review-index', count: 9
@@ -466,7 +469,10 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロワー: 3"
           expect(page).to have_text "フォロー: 5"
           expect(page).not_to have_link "アカウント情報編集"
-          expect(page).not_to have_link "フォロー"
+
+          within('#follow_form') do
+            expect(page).not_to have_link "フォロー"
+          end
         end
 
         expect(page).to have_selector '.review-index', count: 3
@@ -486,7 +492,10 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロワー: 5"
           expect(page).to have_text "フォロー: 3"
           expect(page).to have_link "アカウント情報編集", href: edit_user_registration_path
-          expect(page).not_to have_link "フォロー"
+
+          within('#follow_form') do
+            expect(page).not_to have_link "フォロー"
+          end
 
           click_on "自己紹介を編集"
 
@@ -514,11 +523,16 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロワー: 3"
           expect(page).to have_text "フォロー: 5"
           expect(page).not_to have_link "アカウント情報編集"
-          expect(page).to have_link "フォロー"
 
-          click_on "フォロー"
+          within('#follow_form') do
+            expect(page).to have_link "フォロー"
+          end
 
-          expect(page).to have_link "フォロー解除"
+          within('#follow_form') do
+            click_on "フォロー"
+            expect(page).to have_link "フォロー解除"
+          end
+
           expect(page).to have_text "フォロワー: 4"
         end
 
@@ -531,9 +545,11 @@ RSpec.describe "Users", type: :system do
         visit user_path(other_user)
 
         within('.user-detail') do
-          click_on "フォロー解除"
+          within('#follow_form') do
+            click_on "フォロー解除"
+            expect(page).to have_link "フォロー"
+          end
 
-          expect(page).to have_link "フォロー"
           expect(page).to have_text "フォロワー: 3"
         end
 

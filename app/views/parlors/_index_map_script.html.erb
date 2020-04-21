@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    document.addEventListener('turbolinks:load', function () {
+        checkMapsTurbolinks();
+    });
+
+    function initMap() {
+        isMapsApiLoaded = true;
+
+        let parlorsData = <%= raw parlors.to_json %>;
+
+        let map = new google.maps.Map(document.getElementById('parlors-index-map'), {
+            center: {lat: 35.659487, lng: 139.699901},
+            zoom: 16,
+            gestureHandling: 'cooperative'
+        });
+
+        for (let i = 0; i < parlorsData.length; i++) {
+            let item = parlorsData[i];
+
+            let marker = new google.maps.Marker({
+                position: {'lat': parseFloat(item['latitude']), 'lng': parseFloat(item['longitude'])},
+                map: map
+            });
+
+            let contentString = "<div class='map-window'>" +
+                `<h4><strong><a href=/parlors/${item['id']}>` + item['name'] + "</a></strong></h4>" +
+                "<p>" + item['address'] + "</p>" +
+                "</div>";
+
+            let infoWindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            openInfoWindow(parlorsData, map, marker, infoWindow, i)
+        }
+    }
+
+    function openInfoWindow(data, map, marker, infoWindow, index) {
+        let item = data[index];
+        item['infoWindow'] = infoWindow;
+
+        marker.addListener('click', function (e) {
+            closeInfoWindows(data);
+            infoWindow.open(map, marker)
+        });
+    }
+
+    function closeInfoWindows(data) {
+        for (i = 0; i < data.length; i++) {
+            data[i]['infoWindow'].close();
+        }
+    }
+</script>

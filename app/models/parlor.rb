@@ -23,6 +23,10 @@ class Parlor < ApplicationRecord
   VALID_URL_REGEX = /https?:\/\/[\w\/:%#\$&\?\(\)~\.=\+\-]+/i.freeze
   validates :website, format: { with: VALID_URL_REGEX }, allow_blank: true
 
+  def rating(hash: :overall)
+    reviews.pluck(hash).sum.fdiv(reviews.size).round(1)
+  end
+
   private
 
   def format_address

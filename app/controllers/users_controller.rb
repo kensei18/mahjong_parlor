@@ -11,6 +11,26 @@ class UsersController < ApplicationController
   def delete
   end
 
+  def following
+    @user = User.find(params[:id])
+    @following = @user.following.includes(:reviews, :followers)
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.includes(:reviews, :followers)
+  end
+
+  def favorites
+    @user = User.find(params[:id])
+    @parlors = @user.favorite_parlors.includes(:reviews, :favorites)
+  end
+
+  def likes
+    @user = User.find(params[:id])
+    @reviews = @user.like_reviews.new_order
+  end
+
   def edit_content
     respond_to { |format| format.js }
   end
