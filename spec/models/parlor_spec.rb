@@ -32,11 +32,11 @@ RSpec.describe Parlor, type: :model do
   end
 
   describe 'validation for uniqueness' do
-    let!(:parlor) { create(:parlor) }
+    let!(:parlor) { create(:parlor, :shibuton) }
 
     context 'when building a parlor with the existing parlor' do
       it 'is invalid' do
-        same_parlor = build(:parlor)
+        same_parlor = build(:parlor, :shibuton)
         expect(same_parlor).not_to be_valid
       end
     end
@@ -108,6 +108,25 @@ RSpec.describe Parlor, type: :model do
 
     it "downcases website url" do
       expect(parlor.website).to eq "https://www.mj-octagon.jp/"
+    end
+  end
+
+  describe "#rating" do
+    let(:parlor) { create(:parlor) }
+    let!(:review_1) { create(:review, parlor: parlor, overall: 1, customer: 1) }
+    let!(:review_2) { create(:review, parlor: parlor, overall: 2, customer: 1) }
+    let!(:review_3) { create(:review, parlor: parlor, overall: 3, customer: 2) }
+
+    context "without parameter" do
+      it 'returns reviews overalls average' do
+        expect(parlor.rating).to eq 2.0
+      end
+    end
+
+    context "when the parameter is customer" do
+      it 'returns reviews overalls average' do
+        expect(parlor.rating(hash: :customer)).to eq 1.3
+      end
     end
   end
 end

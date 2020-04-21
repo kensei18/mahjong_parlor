@@ -1,0 +1,10 @@
+<% provide :title, "#{@user.username}さんのいいね！" %>
+<div class="container">
+  <div class="index">
+    <h3><strong><%= link_to @user.username, @user %>さんがいいね！したレビュー</strong></h3>
+    <hr>
+    <div class="row">
+      <%= render @reviews %>
+    </div>
+  </div>
+</div>

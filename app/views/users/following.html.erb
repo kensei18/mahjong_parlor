@@ -1,0 +1,10 @@
+<% provide :title, "#{@user.username}さんのフォロー" %>
+<div class="container">
+  <div class="index">
+    <h3><strong><%= link_to @user.username, @user %>さんのフォロー</strong></h3>
+    <hr>
+    <div class="row">
+      <%= render @following %>
+    </div>
+  </div>
+</div>

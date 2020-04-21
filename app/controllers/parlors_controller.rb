@@ -4,6 +4,7 @@ class ParlorsController < ApplicationController
 
   def index
     @parlors = Parlor.all
+    @page_parlors = @parlors.includes(:reviews, :favorites).page(params[:page]).per(10)
   end
 
   def show

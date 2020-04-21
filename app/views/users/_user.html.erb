@@ -1,0 +1,12 @@
+<div class="col-md-6 col-xs-12">
+  <div class="user-index">
+    <h4><strong><%= link_to user.username, user %></strong></h4>
+    <p>
+      <span>レビュー: <%= user.reviews.size %>件</span>
+      <span>&emsp;</span>
+      <span>フォロワー: <%= user.followers.size %></span>
+    </p>
+    <p><%= user.content %></p>
+  </div>
+  <hr>
+</div>

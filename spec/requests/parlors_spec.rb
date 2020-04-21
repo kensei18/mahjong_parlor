@@ -79,7 +79,7 @@ RSpec.describe "Parlors", type: :request do
       end
 
       it "has a success flash message" do
-        expect(flash[:success]).to eq "しぶとんの情報を更新しました！"
+        expect(flash[:success]).to eq "#{parlor.name}の情報を更新しました！"
       end
     end
 

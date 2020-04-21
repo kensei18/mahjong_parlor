@@ -1,0 +1,10 @@
+<%= provide :title, "#{@user.username}さんのお気に入り" %>
+<div class="container">
+  <div class="index">
+    <h2><strong><%= link_to @user.username, @user %>さんのお気に入り</strong></h2>
+    <hr>
+    <div class="row">
+      <%= render @parlors %>
+    </div>
+  </div>
+</div>
