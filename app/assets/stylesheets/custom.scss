@@ -440,6 +440,15 @@ footer {
   p {
     font-size: 16px;
   }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.user-index {
+  text-align: center;
+  height: 90px;
 }
 
 @media (max-width: $xs-width) {
@@ -472,6 +481,16 @@ footer {
 #parlors-show-map {
   width: 100%;
   height: 350px;
+}
+
+.index h2, .index h3 {
+  text-align: center;
+}
+
+@media (min-width: $sm-width) {
+  .parlor-index {
+    padding-left: 50px;
+  }
 }
 
 // 7. Modal
