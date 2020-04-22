@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     resources :relationships, shallow: true, only: [:create, :destroy]
   end
 
+  namespace :parlors do
+    get :search, :suggest
+  end
+
   resources(:parlors, only: [:index, :create, :new, :show, :update, :destroy]) do
     resources :favorites, shallow: true, only: [:create, :destroy]
 

@@ -14,8 +14,45 @@ function checkMapsTurbolinks() {
     <% end %>
 }
 
+function openInfoWindow(data, map, marker, infoWindow, index) {
+    let item = data[index];
+    item['infoWindow'] = infoWindow;
+
+    marker.addListener('click', function (e) {
+        closeInfoWindows(data);
+        infoWindow.open(map, marker)
+    });
+}
+
+function closeInfoWindows(data) {
+    for (i = 0; i < data.length; i++) {
+        data[i]['infoWindow'].close();
+    }
+}
+
 // Header
-document.addEventListener('turbolinks:load', function () {
+$(document).on('turbolinks:load', function () {
     $('.dropdown-toggle').dropdown()
 });
 
+// Search Suggestion
+$(document).ready(function () {
+    $('#parlors_search_field').autocomplete({
+        source: function(request, response) {
+            const MAX_NUM = 5;
+
+            $.ajax({
+                type: 'GET',
+                url: '/parlors/suggest',
+                data: { keyword: request.term, max_num: MAX_NUM },
+                dataType: 'json'
+            })
+            .done(function(data) {
+                response(data);
+            })
+            .fail(function(data) {
+                response([]);
+            });
+        }
+    });
+});

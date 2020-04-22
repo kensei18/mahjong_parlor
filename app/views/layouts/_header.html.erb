@@ -13,6 +13,11 @@
         <%= link_to "Mahjong Parlor", root_path, id: "header-logo" %>
       </div>
       <div class="collapse navbar-collapse" id="navbar-content">
+        <%= form_tag parlors_search_path, method: :get, class: 'navbar-form navbar-left' do %>
+          <%= text_field_tag :keyword, "",class: 'form-control', id: 'parlors_search_field',
+                                       placeholder: "店名/場所 (例: しぶとん 渋谷)" %>
+          <%= submit_tag "検索", class: 'btn btn-info' %>
+        <% end %>
         <ul class="nav navbar-nav navbar-right">
           <!--  TODO  -->
           <!--  ログインの要不要は作業の邪魔なので後ほど  -->

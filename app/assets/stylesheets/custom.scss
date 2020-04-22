@@ -2,6 +2,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import "jquery-ui/autocomplete";
+ @import "jquery-ui/theme";
+ @import "jquery-ui/menu";
+
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 
@@ -10,6 +14,7 @@
 // 1. Header
 // 1.1. Header Logo
 // 1.2. Header Menu
+// 1.3. Search Form
 // 2. Footer
 // 2.1. Footer Logo
 // 2.2. Footer Menu
@@ -130,6 +135,30 @@ button.navbar-toggle {
 @media (max-width: $xs-width) {
   .navbar-default .navbar-nav li a {
     padding: 5px 50px;
+  }
+}
+
+// 1.3. Search Form
+.navbar-form.navbar-left {
+  width: 400px;
+  margin: 12px 30px;
+
+  .form-control {
+    width: 80%;
+  }
+}
+
+.ui-autocomplete {
+  z-index: 9999;
+}
+
+@media (max-width: $xs-width) {
+  .navbar-form.navbar-left {
+    margin: 12px 5px;
+
+    .form-control {
+      margin-bottom: 5px;
+    }
   }
 }
 

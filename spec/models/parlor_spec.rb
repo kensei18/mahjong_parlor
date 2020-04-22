@@ -85,6 +85,47 @@ RSpec.describe Parlor, type: :model do
     end
   end
 
+  describe "#search" do
+    let!(:parlor_1) { create(:parlor, name: "しぶとん", address: "渋谷") }
+    let!(:parlor_2) { create(:parlor, name: "しぶとん", address: "秋葉原") }
+    let!(:parlor_3) { create(:parlor, name: "しぶとん", address: "池袋") }
+    let!(:parlor_4) { create(:parlor, name: "オクタゴン", address: "渋谷") }
+    let!(:parlor_5) { create(:parlor, name: "オクタゴン", address: "秋葉原") }
+    let!(:parlor_6) { create(:parlor, name: "オクタゴン", address: "池袋") }
+
+    context "with keywords='しぶとん'" do
+      context "without max_num" do
+        it "returns parlor_1, parlor_2 and parlor_3" do
+          expect(Parlor.search("しぶとん")).to contain_exactly(parlor_1, parlor_2, parlor_3)
+        end
+      end
+
+      context "with max_num=2" do
+        it "returns 2 parlors" do
+          expect(Parlor.search("しぶとん", max_num: 2).count).to eq 2
+        end
+      end
+    end
+
+    context "with keywords='秋葉'" do
+      it "returns parlor_2 and parlor_5" do
+        expect(Parlor.search("秋葉")).to contain_exactly(parlor_2, parlor_5)
+      end
+    end
+
+    context "with keywords='しぶとん 渋谷'" do
+      it "returns parlor_2" do
+        expect(Parlor.search("しぶとん 渋谷")).to contain_exactly(parlor_1)
+      end
+    end
+
+    context "without keyword" do
+      it "returns nil" do
+        expect(Parlor.search('')).to eq nil
+      end
+    end
+  end
+
   describe "#format_address" do
     context "with Japan" do
       let(:parlor) { create(:parlor, address: "日本、〒150-0043 東京都渋谷区道玄坂２丁目１０−１２") }
