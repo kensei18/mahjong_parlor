@@ -44,6 +44,16 @@ class ParlorsController < ApplicationController
     redirect_to root_url
   end
 
+  def search
+    @keyword = params[:keyword]
+    @parlors = Parlor.search(@keyword)
+    @page_parlors = @parlors.includes(:reviews, :favorites).page(params[:page]).per(10)
+  end
+
+  def suggest
+    render json: Parlor.search(params[:keyword], max_num: params[:max_num].to_i).pluck(:name)
+  end
+
   private
 
   def create_parlor_params

@@ -1,5 +1,5 @@
 class Parlor < ApplicationRecord
-  has_many :reviews,   dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   has_many :favorites, dependent: :destroy
   has_many :favored_users, through: :favorites, source: :user
@@ -22,6 +22,27 @@ class Parlor < ApplicationRecord
 
   VALID_URL_REGEX = /https?:\/\/[\w\/:%#\$&\?\(\)~\.=\+\-]+/i.freeze
   validates :website, format: { with: VALID_URL_REGEX }, allow_blank: true
+
+  class << self
+    def search(keywords, max_num: count)
+      if keywords.present?
+        patterns = ""
+        keywords_array = []
+
+        keywords.split.each do |keyword|
+          patterns += " AND " if patterns.present?
+          patterns += "(name LIKE ? OR address LIKE ?)"
+          2.times { keywords_array << "%#{keyword}%" }
+        end
+
+        if max_num >= 1
+          where(patterns, *keywords_array).limit(max_num)
+        else
+          where(patterns, *keywords_array)
+        end
+      end
+    end
+  end
 
   def rating(hash: :overall)
     reviews.pluck(hash).sum.fdiv(reviews.size).round(1)

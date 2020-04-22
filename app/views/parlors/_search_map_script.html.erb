@@ -9,8 +9,9 @@
         let parlorsData = <%= raw parlors.to_json %>;
 
         let map = new google.maps.Map(document.getElementById('parlors-index-map'), {
-            center: {lat: 35.659487, lng: 139.699901},
-            zoom: 16,
+            center: {lat: parseFloat(parlorsData[0]['latitude']),
+                     lng: parseFloat(parlorsData[0]['longitude'])},
+            zoom: 15,
             gestureHandling: 'cooperative'
         });
 

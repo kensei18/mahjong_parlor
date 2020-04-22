@@ -1,0 +1,13 @@
+<% provide :title, "検索結果" %>
+<div class="container">
+  <h3><strong><%= @keyword %>の検索結果</strong></h3>
+  <%= page_entries_info @page_parlors %>
+  <br><br>
+  <div id="parlors-index-map"></div>
+  <br><br>
+  <div class="row">
+    <%= render @page_parlors %>
+  </div>
+  <%= paginate @page_parlors %>
+</div>
+<%= render 'search_map_script', parlors: @parlors %>

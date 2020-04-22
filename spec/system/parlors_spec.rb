@@ -75,7 +75,7 @@ RSpec.describe "Parlors", type: :system do
       end
 
       within('#edit-parlor') do
-        expect(page).to have_select("タバコ", selected: "禁煙", options: %w(不明 禁煙 喫煙 分煙))
+        expect(page).to have_select("タバコ", selected: "禁煙", options: %W(不明 禁煙 喫煙 分煙))
 
         fill_in "URL", with: "ww.com"
         select "喫煙", from: "タバコ"
@@ -144,6 +144,56 @@ RSpec.describe "Parlors", type: :system do
 
       expect(current_path).to eq root_path
       expect(page).to have_text "#{parlor.name}を削除しました"
+    end
+  end
+
+  describe "Search Parlor" do
+    let!(:parlor_1) { create(:parlor, name: "しぶとん", address: "渋谷") }
+    let!(:parlor_2) { create(:parlor, name: "しぶとん", address: "秋葉原") }
+    let!(:parlor_3) { create(:parlor, name: "しぶとん", address: "池袋") }
+    let!(:parlor_4) { create(:parlor, name: "オクタゴン", address: "渋谷") }
+    let!(:parlor_5) { create(:parlor, name: "オクタゴン", address: "秋葉原") }
+    let!(:parlor_6) { create(:parlor, name: "オクタゴン", address: "池袋") }
+    let!(:parlor_7) { create(:parlor, name: "しぶや", address: "渋谷") }
+    let!(:parlor_8) { create(:parlor, name: "しぶや", address: "秋葉原") }
+    let!(:parlor_9) { create(:parlor, name: "しぶや", address: "池袋") }
+
+    it "has search function working well", js: true do
+      visit root_path
+
+      within('header') do
+        find('#parlors_search_field').fill_in with: "しぶ"
+      end
+
+      expect(page).to have_selector '.ui-menu-item', count: 5
+
+      within('header') do
+        click_on "検索"
+      end
+
+      expect(current_path).to eq parlors_search_path
+      expect(title).to eq "検索結果 | Mahjong Parlor"
+
+      expect(page).to have_selector '.parlor-index', count: 6
+
+      within('header') do
+        find('#parlors_search_field').fill_in with: ""
+      end
+
+      expect(page).to have_selector '.ui-menu-item', count: 0
+
+      within('header') do
+        find('#parlors_search_field').fill_in with: "池袋"
+      end
+
+      expect(page).to have_selector '.ui-menu-item', count: 3
+
+      within('header') do
+        click_on "検索"
+      end
+
+      expect(current_path).to eq parlors_search_path
+      expect(page).to have_selector '.parlor-index', count: 3
     end
   end
 end
