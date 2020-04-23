@@ -7,7 +7,13 @@ Ruby on Rails v5.2 を使用しています。
 https://www.mahjong-parlor.com/
 
 ## Design
-![mahjong_parlor](https://user-images.githubusercontent.com/43493096/80110311-80870e00-85b9-11ea-95c9-2bbecb531806.gif)
+<img src="https://user-images.githubusercontent.com/43493096/80111083-613cb080-85ba-11ea-9eea-cec942959ef7.png" width="400px">
+<img src="https://user-images.githubusercontent.com/43493096/80111103-6994eb80-85ba-11ea-95e8-a6ca28a6139f.png" width="400px">
+<br><br>
+<img src="https://user-images.githubusercontent.com/43493096/80111118-6e599f80-85ba-11ea-8e79-1f1bfd708786.png" width="400px">
+<img src="https://user-images.githubusercontent.com/43493096/80111135-76194400-85ba-11ea-93b5-df4bdff8f4d1.png" width="400px">
+<br><br>
+<img src="https://user-images.githubusercontent.com/43493096/80110311-80870e00-85b9-11ea-95c9-2bbecb531806.gif" width="400px">
 
 ## Technical Specification
 #### Backend
