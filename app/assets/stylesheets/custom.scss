@@ -529,6 +529,10 @@ footer {
   text-align: center;
 }
 
+.parlor-index h4 strong {
+  color: darkorange;
+}
+
 @media (min-width: $sm-width) {
   .parlor-index {
     padding-left: 50px;

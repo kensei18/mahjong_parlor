@@ -23,8 +23,8 @@
       <small><a href="#" data-toggle="modal" data-target="#edit-parlor">情報を編集する</a></small>
       <br>
       <%= link_to "レビューを投稿する！", new_parlor_review_path(parlor), class: "form-btn btn-info" %>
+      <%= render 'favorite_form', parlor: parlor %>
       <% if user_signed_in? %>
-        <%= render 'favorite_form', parlor: parlor %>
         <% if current_user.admin? %>
           <%= link_to "登録を削除", parlor_path(parlor), method: :delete, class: "form-btn btn-danger" %>
         <% end %>

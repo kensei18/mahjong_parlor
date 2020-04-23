@@ -1,3 +1,3 @@
-$('#favorite_form').html(
+$('#favorite_form_<%= @parlor.id %>').html(
     "<%= escape_javascript(render 'parlors/add_to_favorite', parlor: @parlor) %>"
 )

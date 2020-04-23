@@ -16,18 +16,18 @@ RSpec.describe "Favorites", type: :system do
     visit parlor_path(parlor)
 
     within '.parlor-detail' do
-      expect(page).to have_link "お気に入り登録"
-      expect(page).not_to have_link "お気に入り解除"
+      expect(page).to have_link "行きつけに登録"
+      expect(page).not_to have_link "行きつけ解除"
 
-      expect { click_on "お気に入り登録" }.to change(Favorite, :count).by(1)
+      expect { click_on "行きつけに登録" }.to change(Favorite, :count).by(1)
 
-      expect(page).not_to have_link "お気に入り登録"
-      expect(page).to have_link "お気に入り解除"
+      expect(page).not_to have_link "行きつけに登録"
+      expect(page).to have_link "行きつけ解除"
 
-      expect { click_on "お気に入り解除" }.to change(Favorite, :count).by(-1)
+      expect { click_on "行きつけ解除" }.to change(Favorite, :count).by(-1)
 
-      expect(page).to have_link "お気に入り登録"
-      expect(page).not_to have_link "お気に入り解除"
+      expect(page).to have_link "行きつけに登録"
+      expect(page).not_to have_link "行きつけ解除"
     end
   end
 end
