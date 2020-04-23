@@ -4,7 +4,12 @@
     <span><small><%= parlor.address %></small></span>
     <h4>総合評価： <strong><%= parlor.rating %></strong></h4>
     <h5>レビュー件数： <strong><%= parlor.reviews.size %>件</strong></h5>
-    <h5>お気に入り登録： <strong><%= parlor.favorites.size %>ユーザー</strong></h5>
+    <h5>行きつけ登録： <strong><%= parlor.favorites.size %>ユーザー</strong></h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+      <%= render 'parlors/favorite_form', parlor: parlor %>
+    </div>
   </div>
   <hr>
 </div>
