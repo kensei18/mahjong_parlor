@@ -22,7 +22,7 @@ RSpec.describe "Parlors", type: :request do
       end
 
       it 'redirects to root url' do
-        expect(response).to redirect_to root_url
+        expect(response).to redirect_to parlor_path(Parlor.last)
       end
 
       it 'creates a parlor', :skip_before do

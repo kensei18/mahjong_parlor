@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @reviews = @user.reviews.new_order.
-      includes(:parlor, comments: :user).page(params[:page]).per(9)
+      includes(:parlor, :like_users, comments: :user).page(params[:page]).per(9)
   end
 
   def delete
@@ -13,12 +13,12 @@ class UsersController < ApplicationController
 
   def following
     @user = User.find(params[:id])
-    @following = @user.following.includes(:reviews, :followers)
+    @following = @user.following.includes(:followers).reviews_count_order
   end
 
   def followers
     @user = User.find(params[:id])
-    @followers = @user.followers.includes(:reviews, :followers)
+    @followers = @user.followers.includes(:followers).reviews_count_order
   end
 
   def favorites
@@ -28,7 +28,8 @@ class UsersController < ApplicationController
 
   def likes
     @user = User.find(params[:id])
-    @reviews = @user.like_reviews.new_order
+    @reviews = @user.like_reviews.new_order.
+      includes(:parlor, :user, :like_users, comments: :user).page(params[:page]).per(9)
   end
 
   def edit_content

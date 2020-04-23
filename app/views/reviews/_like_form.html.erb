@@ -1,4 +1,4 @@
-<% if current_user.like?(review) %>
+<% if review.like_user?(current_user) %>
   <%= render 'reviews/unlike', review: review %>
 <% else %>
   <%= render 'reviews/like', review: review %>

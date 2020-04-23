@@ -9,7 +9,8 @@ class ParlorsController < ApplicationController
 
   def show
     @parlor = Parlor.find(params[:id])
-    @reviews = @parlor.reviews.new_order.includes(:user, comments: :user).page(params[:page]).per(9)
+    @reviews = @parlor.reviews.new_order.
+      includes(:user, :like_users, comments: :user).page(params[:page]).per(9)
   end
 
   def new
@@ -19,8 +20,8 @@ class ParlorsController < ApplicationController
   def create
     @parlor = Parlor.new(create_parlor_params)
     if @parlor.save
-      flash[:success] = "新しい店舗を登録しました！"
-      redirect_to root_url
+      flash[:success] = "#{@parlor.name}を登録しました！"
+      redirect_to @parlor
     else
       render :new
     end
