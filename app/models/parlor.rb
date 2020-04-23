@@ -45,7 +45,11 @@ class Parlor < ApplicationRecord
   end
 
   def rating(hash: :overall)
-    reviews.pluck(hash).sum.fdiv(reviews.size).round(1)
+    if reviews.present?
+      reviews.pluck(hash).sum.fdiv(reviews.size).round(1)
+    else
+      0.0
+    end
   end
 
   private

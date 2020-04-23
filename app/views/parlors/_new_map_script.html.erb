@@ -18,37 +18,4 @@
             codeAddress(map, geocoder, infoWindow);
         });
     }
-
-    function codeAddress(map, geocoder, infoWindow) {
-        let markers = [];
-        let address = $('#address').val();
-
-        geocoder.geocode( { 'address': address }, function(results, status) {
-            if (status === 'OK') {
-                clearMarkers(markers);
-                map.setZoom(17);
-                map.setCenter(results[0].geometry.location);
-                let marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location
-                });
-                markers.push(marker);
-                infoWindow.setContent(results[0].formatted_address);
-                infoWindow.open(map, marker);
-
-                $('#parlor_address').val(results[0].formatted_address);
-                $('#parlor_latitude').val(results[0].geometry.location.lat());
-                $('#parlor_longitude').val(results[0].geometry.location.lng());
-                $('.readonly').attr('readonly', true);
-            } else {
-                alert('該当するお店が存在しません: ' + status);
-            }
-        });
-    }
-
-    function clearMarkers(markers) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null);
-        }
-    }
 </script>

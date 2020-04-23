@@ -1,3 +1,3 @@
-<%= link_to "いいね！取消", like_path(current_user.likes.find_by(review_id: review.id)),
+<%= link_to "いいね！取消", like_path(review.likes.find_by(user_id: current_user.id)),
             method: :delete, remote: true, class: 'form-btn btn-default' %>
-<p><small id="like_count_<%= review.id %>">いいね！ <%= review.likes.count %>件</small></p>
+<p><small id="like_count_<%= review.id %>">いいね！ <%= review.likes.size %>件</small></p>

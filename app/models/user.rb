@@ -31,6 +31,11 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, format: { with: VALID_EMAIL_REGEX }
 
+  scope :reviews_count_order, -> do
+    left_joins(:reviews).select('users.*, COUNT(reviews.id) AS reviews_count').
+      group(:id).order('reviews_count DESC')
+  end
+
   def follow(other_user)
     following << other_user
   end

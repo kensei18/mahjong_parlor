@@ -54,7 +54,7 @@ RSpec.describe "Parlors", type: :system do
         expect { click_button '登録' }.to change(Parlor, :count).by(1)
       end
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq parlor_path(Parlor.last)
     end
   end
 

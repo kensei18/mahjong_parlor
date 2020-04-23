@@ -2,10 +2,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@import "jquery-ui/autocomplete";
- @import "jquery-ui/theme";
- @import "jquery-ui/menu";
-
 // Import Google Fonts
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap');
 
@@ -257,12 +253,25 @@ footer {
 .search-form {
   margin: 40px auto;
 
+  h2 {
+    text-align: center;
+  }
+
   .form-control {
     @extend .large-font-form;
   }
 
   .btn {
     font-weight: bold;
+  }
+
+  li {
+    line-height: 30px;
+  }
+
+  ul li {
+    display: inline;
+    padding-right: 10px;
   }
 }
 
@@ -455,6 +464,10 @@ footer {
 }
 
 // 6.3. Users
+.user-detail {
+  text-align: center;
+}
+
 #user_content_form {
   p {
     font-size: 18px;

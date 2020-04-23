@@ -31,4 +31,8 @@ class Review < ApplicationRecord
       content
     end
   end
+
+  def like_user?(user)
+    like_users.include?(user)
+  end
 end

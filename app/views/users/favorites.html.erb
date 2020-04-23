@@ -1,7 +1,7 @@
-<%= provide :title, "#{@user.username}さんのお気に入り" %>
+<%= provide :title, "#{@user.username}さんの行きつけ" %>
 <div class="container">
   <div class="index">
-    <h2><strong><%= link_to @user.username, @user %>さんのお気に入り</strong></h2>
+    <h2><strong><%= link_to @user.username, @user %>さんの行きつけ</strong></h2>
     <hr>
     <div class="row">
       <%= render @parlors %>
