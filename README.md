@@ -29,7 +29,7 @@ Nginx 1.17
 Puma 3.11
 
 ### Infrastructure
-AWS (VCP / EC2 / RDS / ALB / Route53 / Certificate Manager)
+AWS (VCP / EC2 / RDS / S3 / ALB / Route53 / Certificate Manager)
 
 Docker Compose
 
@@ -38,7 +38,7 @@ CircleCI
 ### Web API
 Google Maps API (Maps JavaScript API / Geocoding API)
 
-![Untitled Diagram](https://user-images.githubusercontent.com/43493096/80103128-b246a780-85ae-11ea-838d-3e51cc38dd6c.png)
+![Untitled Diagram](https://user-images.githubusercontent.com/43493096/80299708-66c01380-87d1-11ea-842d-02d80cbdff14.png)
 
 
 ## Usage
@@ -120,9 +120,11 @@ Google Maps API (Maps JavaScript API / Geocoding API)
 
 ## Challenge
 ### 今後の課題
-- **Active Storageを使用した画像アップロード機能の作成**
-    - レビューと合わせて、店内の写真などをアップロードする機能を追加する予定です。
-    - それにともない、AWS S3を使用したインフラを実現する予定です。
+- ~~**Active Storageを使用した画像アップロード機能の作成**~~
+    - ~~レビューと合わせて、店内の写真などをアップロードする機能を追加する予定です。~~
+    - ~~それにともない、AWS S3を使用したインフラを実現する予定です。~~
+    
+    **実装済みです**
 
 
 - **CircleCIでの自動デプロイ**
