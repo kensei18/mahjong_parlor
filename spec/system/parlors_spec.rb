@@ -58,6 +58,43 @@ RSpec.describe "Parlors", type: :system do
     end
   end
 
+  describe "Index" do
+    let(:user) { create(:user) }
+    let!(:parlors) { create_list(:parlor, 3) }
+    let(:parlor_with_images) { create(:parlor) }
+    let!(:review) { create(:review, :images_attached, parlor: parlor_with_images) }
+
+    it "has an index page working well", js: true do
+      visit root_path
+
+      expect(page).to have_selector '.parlor-index', count: 4
+      expect(page).to have_selector 'img', count: 1
+      expect(page).not_to have_link "行きつけに登録"
+      expect(page).not_to have_link "行きつけ解除"
+
+      sign_in user
+      visit root_path
+
+      expect(page).to have_selector '.parlor-index', count: 4
+      expect(page).to have_selector 'img', count: 1
+      expect(page).to have_link "行きつけに登録", count: 4
+      expect(page).not_to have_link "行きつけ解除"
+
+      within all('.parlor-index')[0] do
+        expect(page).to have_text "行きつけ登録： 0ユーザー"
+
+        click_on "行きつけに登録"
+
+        expect(page).to have_text "行きつけ登録： 1ユーザー"
+      end
+
+      expect(page).to have_selector '.parlor-index', count: 4
+      expect(page).to have_selector 'img', count: 1
+      expect(page).to have_link "行きつけに登録", count: 3
+      expect(page).to have_link "行きつけ解除", count: 1
+    end
+  end
+
   describe "Edit a parlor" do
     let(:parlor) { create(:parlor, website: "", smoking: 'no_smoking') }
 

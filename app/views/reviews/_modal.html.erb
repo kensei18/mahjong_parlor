@@ -22,7 +22,7 @@
           <div class="row">
             <% review.images.each do |image| %>
               <div class="col-sm-6 col-xs-12">
-                <div class="review-image">
+                <div class="parlor-image">
                   <%= link_to(rails_blob_path(image), target: '_blank', rel: 'noopener noreferrer') do %>
                     <%= image_tag image.variant(resize: '250x160'), class: 'img-rounded' %>
                   <% end %>

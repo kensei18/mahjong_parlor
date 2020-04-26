@@ -1,3 +1,7 @@
 $('#favorite_form_<%= @parlor.id %>').html(
     "<%= escape_javascript(render 'parlors/add_to_favorite', parlor: @parlor) %>"
 )
+
+$('#favorites_count_<%= @parlor.id %>').html(
+    "<h5>行きつけ登録： <strong><%= @parlor.favorites.size %>ユーザー</strong></h5>"
+)

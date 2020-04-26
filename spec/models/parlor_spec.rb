@@ -126,6 +126,24 @@ RSpec.describe Parlor, type: :model do
     end
   end
 
+  describe "#display_images" do
+    let(:parlor) { create(:parlor) }
+    let!(:reviews_with_images) { create_list(:review, 3, :images_attached, parlor: parlor) }
+    let!(:reviews_without_images) { create_list(:review, 3, parlor: parlor) }
+
+    context "without count parameter" do
+      it "returns array including 3 images" do
+        expect(parlor.display_images.length).to eq 3
+      end
+    end
+
+    context "with count parameter 2" do
+      it "returns array including 2 images" do
+        expect(parlor.display_images(count: 2).length).to eq 2
+      end
+    end
+  end
+
   describe "#format_address" do
     context "with Japan" do
       let(:parlor) { create(:parlor, address: "日本、〒150-0043 東京都渋谷区道玄坂２丁目１０−１２") }

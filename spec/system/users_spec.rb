@@ -445,7 +445,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロー: 3"
           expect(page).not_to have_link "アカウント情報編集"
 
-          within('#follow_form') do
+          within('.follow_form') do
             expect(page).not_to have_link "フォロー"
           end
         end
@@ -470,7 +470,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロー: 5"
           expect(page).not_to have_link "アカウント情報編集"
 
-          within('#follow_form') do
+          within('.follow_form') do
             expect(page).not_to have_link "フォロー"
           end
         end
@@ -493,7 +493,7 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロー: 3"
           expect(page).to have_link "アカウント情報編集", href: edit_user_registration_path
 
-          within('#follow_form') do
+          within('.follow_form') do
             expect(page).not_to have_link "フォロー"
           end
 
@@ -524,11 +524,11 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_text "フォロー: 5"
           expect(page).not_to have_link "アカウント情報編集"
 
-          within('#follow_form') do
+          within('.follow_form') do
             expect(page).to have_link "フォロー"
           end
 
-          within('#follow_form') do
+          within('.follow_form') do
             click_on "フォロー"
             expect(page).to have_link "フォロー解除"
           end
@@ -545,7 +545,7 @@ RSpec.describe "Users", type: :system do
         visit user_path(other_user)
 
         within('.user-detail') do
-          within('#follow_form') do
+          within('.follow_form') do
             click_on "フォロー解除"
             expect(page).to have_link "フォロー"
           end
@@ -557,6 +557,78 @@ RSpec.describe "Users", type: :system do
 
         within('.user-detail') do
           expect(page).to have_text "フォロー: 3"
+        end
+      end
+    end
+
+    describe "Following and Followers Page" do
+      let!(:active_relationships) { create_list(:relationship, 4, follower: user) }
+      let!(:passive_relationships) { create_list(:relationship, 3, followed: user) }
+
+      it "has following and followers page working well", js: true do
+        visit followers_user_path(user)
+
+        expect(title).to eq "ユーザーさんのフォロワー | Mahjong Parlor"
+
+        within('.index') do
+          expect(page).to have_selector '.user-index', count: 3
+          expect(page).not_to have_link "フォロー"
+        end
+
+        visit following_user_path(user)
+
+        expect(title).to eq "ユーザーさんのフォロー | Mahjong Parlor"
+
+        within('.index') do
+          expect(page).to have_selector '.user-index', count: 4
+          expect(page).not_to have_link "フォロー解除"
+        end
+
+        sign_in user
+
+        visit followers_user_path(user)
+
+        expect(title).to eq "ユーザーさんのフォロワー | Mahjong Parlor"
+
+        within('.index') do
+          expect(page).to have_selector '.user-index', count: 3
+          expect(page).to have_link "フォロー", count: 3
+        end
+
+        within all('.user-index')[0] do
+          expect(page).to have_text "フォロワー: 0"
+        end
+
+        within all('.follow_form')[0] do
+          click_on "フォロー"
+          expect(page).to have_link "フォロー解除"
+        end
+
+        within all('.user-index')[0] do
+          expect(page).to have_text "フォロワー: 1"
+        end
+
+        visit following_user_path(user)
+
+        expect(title).to eq "ユーザーさんのフォロー | Mahjong Parlor"
+
+        within('.index') do
+          expect(page).to have_selector '.user-index', count: 5
+          expect(page).to have_link "フォロー解除", count: 5
+        end
+
+        within all('.user-index')[0] do
+          expect(page).to have_text "フォロワー: 1"
+        end
+
+        within all('.follow_form')[0] do
+          click_on "フォロー解除"
+          expect(page).to have_link "フォロー"
+          expect(page).not_to have_link "フォロー解除"
+        end
+
+        within all('.user-index')[0] do
+          expect(page).to have_text "フォロワー: 0"
         end
       end
     end

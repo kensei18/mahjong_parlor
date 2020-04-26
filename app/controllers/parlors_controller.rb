@@ -4,11 +4,13 @@ class ParlorsController < ApplicationController
 
   def index
     @parlors = Parlor.all
-    @page_parlors = @parlors.includes(:reviews, :favorites).page(params[:page]).per(10)
+    @page_parlors = @parlors.includes(:favorites, :favored_users,
+                                      reviews: { images_attachments: :blob }).
+      page(params[:page]).per(10)
   end
 
   def show
-    @parlor = Parlor.find(params[:id])
+    @parlor = Parlor.includes(reviews: { images_attachments: :blob }).find(params[:id])
     @reviews = @parlor.reviews.new_order.with_attached_images.
       includes(:user, :like_users, comments: :user).page(params[:page]).per(9)
   end

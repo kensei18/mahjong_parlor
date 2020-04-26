@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div id="favorite_form_<%= parlor.id %>">
-    <% if current_user.favorite?(parlor) %>
+    <% if parlor.favored_user?(current_user) %>
       <%= render 'parlors/remove_from_favorite', parlor: parlor %>
     <% else %>
       <%= render 'parlors/add_to_favorite', parlor: parlor %>

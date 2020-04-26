@@ -4,7 +4,7 @@
     <p>
       <span>レビュー: <%= user.reviews_count %>件</span>
       <span>&emsp;</span>
-      <span>フォロワー: <%= user.followers.size %></span>
+      <span id="follower_count_<%= user.id %>">フォロワー: <%= user.followers.size %></span>
     </p>
     <p><%= user.content %></p>
   </div>
