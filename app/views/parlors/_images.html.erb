@@ -1,13 +1,13 @@
 <div class="parlor-images">
   <div class="row">
     <% if parlor.display_images.empty? %>
-      <div class="review-image">
+      <div class="parlor-image">
         <p>写真は投稿されていません</p>
       </div>
     <% else %>
-      <% parlor.display_images(count: 8).each do |image| %>
-        <div class="col-sm-3 col-xs-6">
-          <div class="review-image">
+      <% parlor.display_images(count: yield(:images_count).to_i).each do |image| %>
+        <div class="<%= yield(:images_class) %>">
+          <div class="parlor-image">
             <%= link_to(rails_blob_path(image), target: '_blank', rel: 'noopener noreferrer') do %>
               <%= image_tag image.variant(resize: '250x160'), class: 'img-rounded' %>
             <% end %>

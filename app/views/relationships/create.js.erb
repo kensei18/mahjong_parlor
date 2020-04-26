@@ -1,3 +1,7 @@
-$('#follow_form').html("<%= escape_javascript(render 'users/unfollow', user: @user) %>")
+$('#follow_form_<%= @user.id %>').html(
+    "<%= escape_javascript(render 'users/unfollow', user: @user) %>"
+)
 
 $('#followers_count').html("<p>フォロワー: <strong><%= @user.followers.count %></strong></p>")
+
+$('#follower_count_<%= @user.id %>').text("フォロワー: <%= @user.followers.size %>")

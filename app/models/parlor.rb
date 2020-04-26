@@ -52,8 +52,12 @@ class Parlor < ApplicationRecord
     end
   end
 
+  def favored_user?(user)
+    favored_users.include?(user)
+  end
+
   def display_images(count: nil)
-    images = reviews.with_attached_images.map { |review| review.images }.flatten
+    images = reviews.map { |review| review.images }.flatten
     if count
       images.take(count)
     else

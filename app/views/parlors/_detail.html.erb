@@ -21,7 +21,9 @@
         <h5><%= parlor.smoking_i18n %></h5>
       </div>
       <small><a href="#" data-toggle="modal" data-target="#edit-parlor">情報を編集する</a></small>
-      <br>
+      <div class="parlor-attribute" id="favorites_count_<%= parlor.id %>">
+        <h5>行きつけ登録： <strong><%= parlor.favorites.size %>ユーザー</strong></h5>
+      </div>
       <%= link_to "レビューを投稿する！", new_parlor_review_path(parlor), class: "form-btn btn-info" %>
       <%= render 'favorite_form', parlor: parlor %>
       <% if user_signed_in? %>

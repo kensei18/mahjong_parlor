@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2 col-xs-12">
-    <div id="follow_form">
+    <div class="follow_form" id="follow_form_<%= user.id %>">
       <% if user_signed_in? && user != current_user %>
         <% if current_user.following?(user) %>
           <%= render 'users/unfollow', user: user %>

@@ -23,7 +23,8 @@ class UsersController < ApplicationController
 
   def favorites
     @user = User.find(params[:id])
-    @parlors = @user.favorite_parlors.includes(:reviews, :favorites)
+    @parlors = @user.favorite_parlors.includes(:favorites, :favored_users,
+                                               reviews: { images_attachments: :blob })
   end
 
   def likes
