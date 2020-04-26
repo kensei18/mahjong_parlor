@@ -1,6 +1,7 @@
 FROM ruby:2.6.5
 
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs vim chromium-driver
+RUN apt-get update -qq \
+    && apt-get install -y build-essential libpq-dev nodejs vim chromium-driver imagemagick
 
 RUN mkdir /mahjong_parlor
 ENV APP_ROOT /mahjong_parlor

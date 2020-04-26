@@ -5,6 +5,14 @@ RSpec.describe Review, type: :model do
     expect(build(:review)).to be_valid
   end
 
+  describe "images" do
+    context "when attaching images" do
+      it "is valid" do
+        expect(build(:review, :images_attached)).to be_valid
+      end
+    end
+  end
+
   describe "title validation" do
     context "without title" do
       it 'is invalid' do

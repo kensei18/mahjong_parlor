@@ -18,8 +18,15 @@
     <div class="col-xs-12">
       <%= f.label :content %>
       <%= f.text_area :content, class: 'form-control' %>
+      <%= f.label :images %>
+      <%= f.file_field :images, multiple: true, accept: 'image/jpg, image/jpeg, image/png' %>
+      <% if review.images.any? %>
+        <%= label_tag :delete_images do %>
+          &emsp;<%= check_box_tag :delete_images %>&ensp;<small>投稿した写真を削除する</small>
+        <% end %>
+        <br>
+      <% end %>
     </div>
-    <br>
     <div class="col-sm-8 col-sm-offset-2">
       <%= f.submit yield(:submit), class: 'form-btn btn-info' %>
     </div>

@@ -12,6 +12,11 @@ RSpec.describe "Reviews", type: :system do
 
       expect(page).to have_selector 'div.review-index', count: 1
 
+      within('.parlor-images') do
+        expect(page).to have_selector 'img', count: 0
+        expect(page).to have_text "写真は投稿されていません"
+      end
+
       within('.review-index') do
         expect(page).to have_text "#{other_user.username}さんのレビュー"
         expect(page).to have_link other_user.username, href: user_path(other_user)
@@ -32,6 +37,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
         expect(page).to have_text review.content
+        expect(page).to have_selector 'img', count: 0
         expect(page).not_to have_link "レビュー編集"
         expect(page).not_to have_link "レビュー削除"
       end
@@ -88,12 +94,19 @@ RSpec.describe "Reviews", type: :system do
           find("#review_customer_4").choose
         end
 
+        attach_file "店舗の写真", "#{Rails.root}/spec/factories/images/test.png"
+
         expect { click_on "投稿！" }.to change(Review, :count).by(1)
       end
 
       expect(current_path).to eq parlor_path(parlor)
       expect(page).to have_selector '.alert-success', text: "新しいレビューを投稿しました！"
       expect(page).to have_selector 'div.review-index', count: 2
+
+      within('.parlor-images') do
+        expect(page).to have_selector 'img', count: 1
+        expect(page).not_to have_text "写真は投稿されていません"
+      end
 
       within all('.review-index')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
@@ -115,6 +128,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_selector '.review-unstar', count: 4
         expect(page).to have_text "まあまあ"
         expect(page).to have_text "そこそこです"
+        expect(page).to have_selector 'img', count: 1
         expect(page).to have_link "レビュー編集"
         expect(page).to have_link "レビュー削除"
       end
@@ -139,6 +153,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_selector '.review-unstar', count: 0
         expect(page).to have_text review.title
         expect(page).to have_text review.content
+        expect(page).to have_selector 'img', count: 0
         expect(page).not_to have_link "レビュー編集"
         expect(page).not_to have_link "レビュー削除"
       end
@@ -171,6 +186,7 @@ RSpec.describe "Reviews", type: :system do
       within('.review-form') do
         expect(page).to have_field "タイトル", with: "まあまあ"
         expect(page).to have_field "詳細", with: "そこそこです"
+        expect(page).to have_unchecked_field "投稿した写真を削除する"
         expect(page).to have_link "レビュー削除", href: review_path(test_user.reviews.first)
 
         fill_in "タイトル", with: ""
@@ -202,12 +218,19 @@ RSpec.describe "Reviews", type: :system do
           find("#review_customer_1").choose
         end
 
+        check "投稿した写真を削除する"
+
         click_on "保存"
       end
 
       expect(current_path).to eq parlor_path(parlor)
       expect(page).to have_selector '.alert-success', text: "レビューを編集しました！"
       expect(page).to have_selector 'div.review-index', count: 2
+
+      within('.parlor-images') do
+        expect(page).to have_selector 'img', count: 0
+        expect(page).to have_text "写真は投稿されていません"
+      end
 
       within all('.review-index')[0] do
         expect(page).to have_text "テストユーザーさんのレビュー"
@@ -229,6 +252,7 @@ RSpec.describe "Reviews", type: :system do
         expect(page).to have_selector '.review-unstar', count: 16
         expect(page).to have_text "最悪"
         expect(page).to have_text "ダメダメ"
+        expect(page).to have_selector 'img', count: 0
         expect(page).to have_link "レビュー編集"
         expect(page).to have_link "レビュー削除"
 

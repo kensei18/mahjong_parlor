@@ -2,6 +2,9 @@
 <div class="container">
   <%= render 'detail', parlor: @parlor %>
   <hr>
+  <h3><strong><%= @parlor.name %>の写真</strong></h3>
+  <%= render 'images', parlor: @parlor %>
+  <hr>
   <h3><strong><%= @parlor.name %>のレビュー</strong></h3>
   <%= page_entries_info @reviews %>
   <div class="row"><%= render @reviews %></div>

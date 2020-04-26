@@ -50,6 +50,7 @@ gem 'faker', '~> 2.11.0'
 gem 'kaminari', '~> 1.1.1'
 gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'jquery-ui-rails'
+gem 'mini_magick', '~> 4.10.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -72,6 +73,10 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop-airbnb', '3.0.2'
   gem 'rubocop', '0.76.0'
+end
+
+group :production do
+  gem "aws-sdk-s3", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

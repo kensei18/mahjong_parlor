@@ -9,7 +9,7 @@ class ParlorsController < ApplicationController
 
   def show
     @parlor = Parlor.find(params[:id])
-    @reviews = @parlor.reviews.new_order.
+    @reviews = @parlor.reviews.new_order.with_attached_images.
       includes(:user, :like_users, comments: :user).page(params[:page]).per(9)
   end
 
