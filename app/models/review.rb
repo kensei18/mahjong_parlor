@@ -7,6 +7,8 @@ class Review < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_users, through: :likes, source: :user
 
+  has_many_attached :images
+
   scope :new_order, -> { order(created_at: :desc) }
 
   validates :title,       presence: true, length: { maximum: 30 }
@@ -16,8 +18,10 @@ class Review < ApplicationRecord
   validates :service,     presence: true
   validates :customer,    presence: true
 
-  def self.rating_attributes
-    [:overall, :cleanliness, :service, :customer]
+  class << self
+    def rating_attributes
+      [:overall, :cleanliness, :service, :customer]
+    end
   end
 
   def blank_stars(rating_hash)

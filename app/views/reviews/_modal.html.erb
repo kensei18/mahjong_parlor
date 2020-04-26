@@ -17,6 +17,20 @@
         <hr>
         <h5><strong><%= Review.human_attribute_name(:content) %></strong></h5>
         <p><%= review.content %></p>
+        <% if review.images.any? %>
+          <hr>
+          <div class="row">
+            <% review.images.each do |image| %>
+              <div class="col-sm-6 col-xs-12">
+                <div class="review-image">
+                  <%= link_to(rails_blob_path(image), target: '_blank', rel: 'noopener noreferrer') do %>
+                    <%= image_tag image.variant(resize: '250x160'), class: 'img-rounded' %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
         <% if user_signed_in? %>
           <hr>
           <div class="row">

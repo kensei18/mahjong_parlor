@@ -32,6 +32,7 @@
 // 6.4. Parlors
 // 7. Modal
 // 7.1. Review Modal
+// 8. Images
 
 // 0. Fundamental CSS
 $xs-width: 768px;
@@ -550,4 +551,10 @@ footer {
   a {
     text-decoration: none;
   }
+}
+
+// 8. Images
+.review-image {
+  text-align: center;
+  margin: 5px auto;
 }

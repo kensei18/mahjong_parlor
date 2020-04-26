@@ -376,3 +376,16 @@ customer_sample = (1..5).to_a
     end
   end
 end
+
+(1..11).each do |i|
+  image_files = Dir[File.join(Rails.root,
+                              ['app', 'assets', 'images', 'parlors', "parlor_#{i}", '*'])]
+  images_count = image_files.count { |file| File.file?(file) }
+  reviews = Parlor.find(i).reviews
+
+  images_count.times do |j|
+    reviews[j].images.attach(io: File.open(image_files[j]),
+                             filename: "#{i}_#{j}" + File.extname(image_files[j]))
+  end
+end
+

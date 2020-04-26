@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @reviews = @user.reviews.new_order.
+    @reviews = @user.reviews.new_order.with_attached_images.
       includes(:parlor, :like_users, comments: :user).page(params[:page]).per(9)
   end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
   def likes
     @user = User.find(params[:id])
-    @reviews = @user.like_reviews.new_order.
+    @reviews = @user.like_reviews.new_order.with_attached_images.
       includes(:parlor, :user, :like_users, comments: :user).page(params[:page]).per(9)
   end
 

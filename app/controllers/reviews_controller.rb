@@ -25,6 +25,11 @@ class ReviewsController < ApplicationController
 
   def update
     @review = current_user.reviews.find(params[:id])
+
+    if params[:delete_images]
+      @review.images.purge
+    end
+
     if @review.update_attributes(review_params)
       flash[:success] = "レビューを編集しました！"
       redirect_to parlor_url(@review.parlor)
@@ -45,7 +50,7 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:title, :content, :overall,
-                                   :cleanliness, :service, :customer)
+                                   :cleanliness, :service, :customer, images: [])
   end
 
   def correct_user
