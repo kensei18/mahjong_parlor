@@ -19,9 +19,9 @@ Ruby 2.6.5
 
 Ruby on Rails 5.2.4.1
 
+### Middleware
 MySQL 5.7
 
-### Server
 Nginx 1.17
 
 Puma 3.11
