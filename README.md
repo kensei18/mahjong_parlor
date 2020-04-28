@@ -29,12 +29,15 @@ Puma 3.11
 ### Infrastructure
 AWS (VCP / EC2 / RDS / S3 / ALB / Route53 / Certificate Manager)
 
-Docker Compose
+Docker
 
-CircleCI
+Docker Compose
 
 ### Web API
 Google Maps API (Maps JavaScript API / Geocoding API)
+
+### Others
+CircleCI
 
 ![Untitled Diagram](https://user-images.githubusercontent.com/43493096/80299708-66c01380-87d1-11ea-842d-02d80cbdff14.png)
 
