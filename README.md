@@ -4,7 +4,7 @@
 Ruby on Rails v5.2 を使用しています。
 
 ## App URL
-https://www.mahjong-parlor.com/
+現在使用できません。
 
 ## Design
 <img src="https://user-images.githubusercontent.com/43493096/80306860-caae0080-8800-11ea-9a96-a6c6d3f904f2.png" width="400px"><br>
